@@ -264,6 +264,7 @@ src="https://www.facebook.com/tr?id=1527570085243076&ev=PageView&noscript=1"
         await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
         form.style.display = 'none';
         thankYou.style.display = 'block';
+        fbq('track', 'Lead'); // ✅ Form submission completed event
         setTimeout(() => {
           window.location.href = "https://wa.me/213698015461?text=مرحباً%20إلان%20إميغريشن%2C%20لقد%20أرسلت%20نموذج%20التقييم%20المجاني.";
         }, 4000);
