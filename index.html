@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="fr" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>استارة مجانية</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Audit d’Éligibilité Visa</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
@@ -19,69 +20,140 @@
       align-items: center;
       min-height: 100vh;
       flex-direction: column;
-      direction: rtl;
-      text-align: right;
+      text-align: left;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.88);
       border-radius: 20px;
       padding: 40px 30px;
-      max-width: 500px;
-      width: 90%;
+      max-width: 560px;
+      width: 92%;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
       animation: fadeIn 1s ease forwards;
       backdrop-filter: blur(8px);
     }
 
-    @keyframes fadeIn { 0% {opacity: 0; transform: translateY(-20px);} 100% {opacity: 1; transform: translateY(0);} }
+    @keyframes fadeIn {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
 
     .logo {
       display: block;
-      margin: 0 auto 30px auto;
-      width: 300px;
+      margin: 0 auto 24px auto;
+      width: 240px;
       max-width: 90%;
       height: auto;
       transition: transform 0.3s ease;
     }
-
     .logo:hover { transform: scale(1.05); }
 
     h1 {
       font-family: 'Alfa Slab One', cursive;
       color: #1e70c7;
       text-align: center;
-      margin-bottom: 25px;
-      font-size: 26px;
-      line-height: 1.5;
+      margin-bottom: 10px;
+      font-size: 24px;
+      line-height: 1.4;
     }
 
-    form label { font-weight: 500; color: #1e70c7; display: block; margin-bottom: 8px; }
+    .subtitle {
+      text-align: center;
+      margin-bottom: 22px;
+      color: #444;
+      font-size: 14px;
+      line-height: 1.6;
+    }
 
-    form input, form select {
-      width: 100%; padding: 14px 16px; margin-bottom: 18px;
-      border: 1px solid #1e70c7; border-radius: 12px; font-size: 16px;
-      background-color: rgba(255, 255, 255, 0.8);
-      color: #555; text-align: right; transition: all 0.3s ease;
+    .section-title {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #1e70c7;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    form label {
+      font-weight: 500;
+      color: #1e70c7;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      border: 1px solid #1e70c7;
+      border-radius: 12px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.85);
+      color: #333;
+      transition: all 0.3s ease;
       box-shadow: 0 3px 8px rgba(0,0,0,0.05);
     }
 
-    form input:focus, form select:focus {
+    form textarea { min-height: 110px; resize: vertical; }
+
+    form input:focus, form select:focus, form textarea:focus {
       border-color: #e07432;
       box-shadow: 0 6px 15px rgba(224,116,50,0.3);
-      transform: translateY(-2px); outline: none;
+      transform: translateY(-2px);
+      outline: none;
     }
 
-    #telephone { direction: ltr; text-align: right; }
+    #whatsapp { direction: ltr; text-align: left; }
+
+    .checkbox-group {
+      border: 1px solid rgba(30,112,199,0.35);
+      border-radius: 12px;
+      padding: 12px 12px 2px 12px;
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.6);
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .checkbox-row input { width: auto; margin: 2px 0 0 0; box-shadow: none; }
+    .hint { font-size: 12px; color: #666; margin-top: -8px; margin-bottom: 12px; }
+
+    .error {
+      display: none;
+      background: rgba(224, 116, 50, 0.12);
+      border: 1px solid rgba(224, 116, 50, 0.35);
+      color: #8a3b10;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
 
     button {
-      width: 100%; padding: 16px;
-      border: none; border-radius: 12px;
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
       font-size: 18px;
       background-color: #1e70c7;
-      color: #fff; font-weight: 700;
-      cursor: pointer; transition: all 0.3s ease;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
       box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      margin-top: 6px;
     }
 
     button:hover {
@@ -91,134 +163,270 @@
     }
 
     .thank-you {
-      display: none; text-align: center; color: #1e70c7;
-      font-size: 20px; font-weight: 600;
-      margin-top: 20px; line-height: 1.8;
+      display: none;
+      text-align: center;
+      color: #1e70c7;
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 10px;
+      line-height: 1.7;
     }
 
     .disclaimer {
-      margin-top: 25px; font-size: 13px; text-align: center;
-      color: #fff; max-width: 500px; line-height: 1.6;
-      padding: 10px; direction: rtl;
+      margin-top: 16px;
+      font-size: 12px;
+      text-align: center;
+      color: #fff;
+      max-width: 560px;
+      line-height: 1.6;
+      padding: 10px;
     }
 
     @media (max-width: 600px) {
-      .container { padding: 25px 20px; }
-      h1 { font-size: 22px; }
-      .logo { width: 160px; }
-      .disclaimer { font-size: 12px; }
+      .container { padding: 26px 18px; }
+      h1 { font-size: 21px; }
+      .logo { width: 170px; }
     }
   </style>
 
   <!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1527570085243076');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1527570085243076&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1527570085243076');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1527570085243076&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 
 <body>
   <div class="container">
-    <img src="les concepteur.png" alt="شعار" class="logo">
-    <h1>املأ معلوماتك للحصول على استشارة مجانية</h1>
+    <img src="les concepteur.png" alt="Logo" class="logo">
+
+    <h1>Audit d’Éligibilité Visa</h1>
+    <p class="subtitle">
+      Remplissez ce formulaire pour vérifier si votre profil est éligible.
+      <br>⚠️ Nous analysons uniquement les demandes sérieuses.
+    </p>
+
+    <div class="error" id="errorBox"></div>
 
     <form id="form">
-      <label for="nom">الاسم الكامل</label>
-      <input type="text" id="nom" name="nom" placeholder="اكتب اسمك الكامل" required>
 
-      <label for="email">البريد الإلكتروني</label>
-      <input type="email" id="email" name="email" placeholder="اكتب بريدك الإلكتروني" required>
+      <div class="section-title">🧑‍💼 Informations de base</div>
 
-      <label for="telephone">رقم الهاتف</label>
-      <input type="tel" id="telephone" name="telephone" placeholder="اكتب رقم هاتفك" required>
+      <label for="nom">1. Nom et prénom (obligatoire)</label>
+      <input type="text" id="nom" name="nom" placeholder="Ex: Bassem Bounebirat" required>
 
-      <label for="age">العمر</label>
+      <label for="whatsapp">2. Numéro WhatsApp (obligatoire)</label>
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ex: +2136xxxxxxxx" required>
+
+      <label for="email">3. Adresse e-mail (obligatoire)</label>
+      <input type="email" id="email" name="email" placeholder="Ex: bassem@email.com" required>
+
+      <label for="age">4. Âge</label>
       <select id="age" name="age" required>
-        <option value="" disabled selected>اختر عمرك</option>
-        <option value="18-25">من 18 إلى 25 سنة</option>
-        <option value="26-30">من 26 إلى 30 سنة</option>
-        <option value="31-35">من 31 إلى 35 سنة</option>
-        <option value="36-40">من 36 إلى 40 سنة</option>
-        <option value="40+">أكثر من 40 سنة</option>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Moins de 22 ans">Moins de 22 ans</option>
+        <option value="22 – 29 ans">22 – 29 ans</option>
+        <option value="30 – 39 ans">30 – 39 ans</option>
+        <option value="40 – 49 ans">40 – 49 ans</option>
+        <option value="50 ans et +">50 ans et +</option>
       </select>
 
-      <label for="statut">الحالة الاجتماعية</label>
-      <select id="statut" name="statut" required>
-        <option value="" disabled selected>اختر حالتك الاجتماعية</option>
-        <option value="celibataire">أعزب / عزباء</option>
-        <option value="marie">متزوج / متزوجة</option>
-      </select>
+      <div class="section-title">🎓 Profil académique & professionnel</div>
 
-      <label for="niveau">المستوى الدراسي</label>
+      <label for="niveau">5. Niveau d’études le plus élevé</label>
       <select id="niveau" name="niveau" required>
-        <option value="" disabled selected>اختر مستواك الدراسي</option>
-        <option value="baccalaureat">بكالوريا</option>
-        <option value="diplome_pro">شهادة مهنية</option>
-        <option value="licence">ليسانس</option>
-        <option value="master">ماستر</option>
-        <option value="doctorat">دكتوراه</option>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Aucun diplôme">Aucun diplôme</option>
+        <option value="Formation professionnelle">Formation professionnelle</option>
+        <option value="Bac">Bac</option>
+        <option value="Licence">Licence</option>
+        <option value="Master">Master</option>
+        <option value="Doctorat">Doctorat</option>
       </select>
 
-      <label for="experience">عدد سنوات الخبرة المهنية</label>
+      <label for="domaine">6. Domaine de formation / métier actuel</label>
+      <input type="text" id="domaine" name="domaine" placeholder="Ex: Informatique, BTP, Santé..." required>
+
+      <label for="experience">7. Années d’expérience professionnelle</label>
       <select id="experience" name="experience" required>
-        <option value="" disabled selected>اختر خبرتك المهنية</option>
-        <option value="0-2">من 0 إلى سنتين</option>
-        <option value="3-5">من 3 إلى 5 سنوات</option>
-        <option value="6-10">من 6 إلى 10 سنوات</option>
-        <option value="10+">أكثر من 10 سنوات</option>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Aucune">Aucune</option>
+        <option value="Moins de 1 an">Moins de 1 an</option>
+        <option value="1 – 3 ans">1 – 3 ans</option>
+        <option value="3 – 5 ans">3 – 5 ans</option>
+        <option value="5 ans et +">5 ans et +</option>
       </select>
 
-      <label for="profession">المهنة / الوظيفة</label>
-      <input type="text" id="profession" name="profession" placeholder="اكتب مهنتك الحالية" required>
+      <div class="section-title">🌍 Projet à l’étranger</div>
 
-      <label for="budget">الميزانية التقريبية</label>
+      <label for="objectif">8. Quel est votre objectif principal ?</label>
+      <select id="objectif" name="objectif" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Travailler à l’étranger">Travailler à l’étranger</option>
+        <option value="Immigrer définitivement">Immigrer définitivement</option>
+        <option value="Les deux">Les deux</option>
+        <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+      </select>
+
+      <label>9. Pays qui vous intéressent actuellement (choix multiples)</label>
+      <div class="checkbox-group" id="paysGroup">
+        <div class="checkbox-row">
+          <input type="checkbox" name="pays" value="Canada" id="pays_canada">
+          <label for="pays_canada">Canada</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" name="pays" value="Pays du Golfe" id="pays_golfe">
+          <label for="pays_golfe">Pays du Golfe (UAE, Qatar, Arabie Saoudite…)</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" name="pays" value="Europe" id="pays_europe">
+          <label for="pays_europe">Europe</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" name="pays" value="Autre / Pas encore décidé" id="pays_autre">
+          <label for="pays_autre">Autre / Pas encore décidé</label>
+        </div>
+      </div>
+      <div class="hint">*Veuillez choisir au moins 1 pays.</div>
+
+      <div class="section-title">🗣️ Langues</div>
+
+      <label for="francais">10. Niveau de français</label>
+      <select id="francais" name="niveau_francais" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Faible">Faible</option>
+        <option value="Moyen">Moyen</option>
+        <option value="Bon">Bon</option>
+        <option value="Très bon">Très bon</option>
+      </select>
+
+      <label for="anglais">11. Niveau d’anglais</label>
+      <select id="anglais" name="niveau_anglais" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Aucun">Aucun</option>
+        <option value="Débutant">Débutant</option>
+        <option value="Intermédiaire">Intermédiaire</option>
+        <option value="Avancé">Avancé</option>
+      </select>
+
+      <div class="section-title">💰 Budget & timing</div>
+
+      <label for="budget">12. Quel budget êtes-vous prêt(e) à investir pour votre projet ?</label>
       <select id="budget" name="budget" required>
-        <option value="" disabled selected>اختر ميزانيتك</option>
-        <option value="8-15">من 8 ملايين إلى 15 مليون</option>
-        <option value="15-30">من 15 مليون إلى 30 مليون</option>
-        <option value="30-50">من 30 مليون إلى 50 مليون</option>
-        <option value="50+">أكثر من 50 مليون</option>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Moins de 100 000 DA">Moins de 100 000 DA</option>
+        <option value="100 000 – 300 000 DA">100 000 – 300 000 DA</option>
+        <option value="300 000 – 600 000 DA">300 000 – 600 000 DA</option>
+        <option value="Plus de 600 000 DA">Plus de 600 000 DA</option>
       </select>
 
-      <button type="submit">احجز استشارتك المجانية</button>
+      <label for="timing">13. Quand souhaitez-vous partir à l’étranger ?</label>
+      <select id="timing" name="quand_partir" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Moins de 6 mois">Moins de 6 mois</option>
+        <option value="6 – 12 mois">6 – 12 mois</option>
+        <option value="Plus de 12 mois">Plus de 12 mois</option>
+        <option value="Pas encore sûr">Pas encore sûr</option>
+      </select>
+
+      <div class="section-title">🧠 Engagement & sérieux</div>
+
+      <label for="motivation">14. Pourquoi voulez-vous partir à l’étranger ?</label>
+      <textarea id="motivation" name="pourquoi_partir" placeholder="Expliquez brièvement votre motivation (réponses vagues ou copiées-collées peuvent être refusées)" required></textarea>
+
+      <label for="refus">15. Avez-vous déjà essuyé un refus de visa ?</label>
+      <select id="refus" name="refus_visa" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Oui">Oui</option>
+        <option value="Non">Non</option>
+      </select>
+
+      <label for="strategie">16. Êtes-vous prêt(e) à suivre une stratégie légale et réaliste, même si elle prend du temps ?</label>
+      <select id="strategie" name="strategie_legale" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Oui">Oui</option>
+        <option value="Non">Non</option>
+      </select>
+
+      <div class="section-title">✅ Validation finale</div>
+
+      <label>17. Confirmez-vous que :</label>
+      <div class="checkbox-group">
+        <div class="checkbox-row">
+          <input type="checkbox" id="c1" name="confirmation" value="Je comprends que cet audit n’est pas une promesse de visa" required>
+          <label for="c1">Je comprends que cet audit n’est pas une promesse de visa</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="c2" name="confirmation" value="Je souhaite une analyse honnête de ma situation" required>
+          <label for="c2">Je souhaite une analyse honnête de ma situation</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="c3" name="confirmation" value="Je suis une personne sérieuse prête à passer à l’action" required>
+          <label for="c3">Je suis une personne sérieuse prête à passer à l’action</label>
+        </div>
+      </div>
+
+      <button type="submit">Envoyer ma demande</button>
     </form>
 
     <div class="thank-you" id="thankYou">
-      ✅ شكراً لك! تم إرسال النموذج بنجاح.<br>
-      سنتواصل معك قريباً جداً.<br>
-      سيتم تحويلك إلى واتساب خلال لحظات...
+      ✅ Merci ! Votre demande a été envoyée avec succès.<br>
+      Nous analyserons votre profil et vous contacterons sur WhatsApp.<br>
+      Redirection WhatsApp dans quelques secondes…
     </div>
   </div>
 
   <p class="disclaimer">
-    نحن لسنا تابعين لأي قنصلية أو سفارة ولا نصدر أي تأشيرات.
+    Nous ne sommes affiliés à aucune ambassade/consulat et nous ne délivrons aucun visa.
+    Nous proposons uniquement une analyse et un accompagnement stratégique.
   </p>
 
-  <!-- SCRIPT FINAL OPTIMISÉ -->
   <script>
     const form = document.getElementById('form');
     const thankYou = document.getElementById('thankYou');
+    const errorBox = document.getElementById('errorBox');
+
     const scriptURL = "https://script.google.com/macros/s/AKfycbxwFn_BPAKTFebwL2TqGjd3_QU8OQZODQcPTapwUeEWPdDjWMDIdVsHxemD9d3E6k5G/exec";
+
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function hasAtLeastOneCountry() {
+      const checked = document.querySelectorAll('input[name="pays"]:checked');
+      return checked.length > 0;
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      errorBox.style.display = "none";
+
+      // Validation pays (checkbox multiple)
+      if (!hasAtLeastOneCountry()) {
+        showError("Veuillez sélectionner au moins 1 pays dans la section « Pays qui vous intéressent ».");
+        return;
+      }
+
       const formData = new FormData(form);
 
       try {
-
-        await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
+        await fetch(scriptURL, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
 
         form.style.display = 'none';
         thankYou.style.display = 'block';
@@ -229,14 +437,15 @@ src="https://www.facebook.com/tr?id=1527570085243076&ev=PageView&noscript=1"
         }
 
         setTimeout(() => {
-          window.location.href = "https://wa.me/213698015461?text=مرحباً%20إلان%20إميغريشن%2C%20لقد%20أرسلت%20نموذج%20التقييم%20المجاني.";
-        }, 4000);
+          const msg = encodeURIComponent("Bonjour, je viens de soumettre le formulaire pour l’Audit d’Éligibilité Visa.");
+          window.location.href = "https://wa.me/213698015461?text=" + msg;
+        }, 3500);
 
       } catch (error) {
-        alert("خطأ في الإرسال. حاول مرة أخرى.");
+        showError("Erreur d’envoi. Veuillez réessayer.");
       }
     });
   </script>
-
 </body>
 </html>
+
