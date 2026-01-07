@@ -1,205 +1,489 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Audit d’Éligibilité Visa</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, rgba(224,116,50,0.5), rgba(30,112,199,0.5));
-      min-height: 100vh;
+      background: linear-gradient(135deg, rgba(224,116,50,0.6), rgba(30,112,199,0.6));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: flex;
       justify-content: center;
       align-items: center;
+      min-height: 100vh;
       flex-direction: column;
+      text-align: left;
     }
+
     .container {
-      background: #fffaf5;
-      border-radius: 18px;
-      padding: 36px 28px;
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 20px;
+      padding: 40px 30px;
       max-width: 560px;
-      width: 95%;
+      width: 92%;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease forwards;
+      backdrop-filter: blur(8px);
     }
+
+    @keyframes fadeIn {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+
     .logo {
       display: block;
-      margin: 0 auto 20px;
-      width: 220px;
+      margin: 0 auto 24px auto;
+      width: 240px;
+      max-width: 90%;
+      height: auto;
+      transition: transform 0.3s ease;
     }
+    .logo:hover { transform: scale(1.05); }
+
     h1 {
       font-family: 'Alfa Slab One', cursive;
       color: #1e70c7;
       text-align: center;
+      margin-bottom: 10px;
       font-size: 24px;
-      margin-bottom: 12px;
+      line-height: 1.4;
     }
+
     .subtitle {
       text-align: center;
-      font-size: 14px;
-      color: #444;
       margin-bottom: 22px;
-      line-height: 1.5;
+      color: #444;
+      font-size: 14px;
+      line-height: 1.6;
     }
-    label {
+
+    .section-title {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #1e70c7;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    form label {
       font-weight: 500;
       color: #1e70c7;
-      margin-bottom: 6px;
       display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
     }
-    input, select, textarea {
+
+    form input, form select, form textarea {
       width: 100%;
-      padding: 14px;
+      padding: 14px 16px;
       margin-bottom: 14px;
-      border-radius: 12px;
       border: 1px solid #1e70c7;
-      font-size: 15px;
+      border-radius: 12px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.85);
+      color: #333;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
     }
-    textarea { min-height: 100px; }
+
+    form textarea { min-height: 110px; resize: vertical; }
+
+    form input:focus, form select:focus, form textarea:focus {
+      border-color: #e07432;
+      box-shadow: 0 6px 15px rgba(224,116,50,0.3);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    #whatsapp { direction: ltr; text-align: left; }
+
+    .checkbox-group {
+      border: 1px solid rgba(30,112,199,0.35);
+      border-radius: 12px;
+      padding: 12px 12px 2px 12px;
+      margin-bottom: 14px;
+      background: rgba(255,255,255,0.6);
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .checkbox-row input { width: auto; margin: 2px 0 0 0; box-shadow: none; }
+
+    .hint { font-size: 12px; color: #666; margin-top: -8px; margin-bottom: 12px; }
+
+    .error {
+      display: none;
+      background: rgba(224, 116, 50, 0.12);
+      border: 1px solid rgba(224, 116, 50, 0.35);
+      color: #8a3b10;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
     button {
       width: 100%;
       padding: 16px;
-      border-radius: 12px;
       border: none;
-      background: #1e70c7;
-      color: #fff;
+      border-radius: 12px;
       font-size: 18px;
-      font-weight: bold;
+      background-color: #1e70c7;
+      color: #fff;
+      font-weight: 700;
       cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      margin-top: 6px;
     }
-    button:hover { background: #155a9a; }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.02);
+      background-color: #155a9a;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
     .thank-you {
       display: none;
       text-align: center;
-      font-size: 18px;
       color: #1e70c7;
+      font-size: 18px;
       font-weight: 600;
+      margin-top: 10px;
+      line-height: 1.7;
     }
+
     .disclaimer {
       margin-top: 16px;
       font-size: 12px;
-      color: #fff;
       text-align: center;
+      color: #fff;
       max-width: 560px;
+      line-height: 1.6;
+      padding: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 26px 18px; }
+      h1 { font-size: 21px; }
+      .logo { width: 170px; }
     }
   </style>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1527570085243076');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1527570085243076&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 
 <body>
+  <div class="container">
+    <img src="les concepteur.png" alt="Logo" class="logo">
 
-<div class="container">
-  <img src="les concepteur.png" class="logo" alt="Les Concepteurs d’Évasions">
+    <h1>Audit d’Éligibilité Visa</h1>
+    <p class="subtitle">
+      Remplissez ce formulaire pour vérifier si votre profil est éligible.
+      <br>⚠️ Nous analysons uniquement les demandes sérieuses.
+    </p>
 
-  <h1>Audit d’Éligibilité Visa</h1>
-  <p class="subtitle">
-    Remplissez ce formulaire pour vérifier si votre profil est éligible.<br>
-    ⚠️ Nous analysons uniquement les demandes sérieuses.
+    <div class="error" id="errorBox"></div>
+
+    <form id="form">
+      <div class="section-title">🧑‍💼 Informations de base</div>
+
+      <label for="nom">1. Nom et prénom (obligatoire)</label>
+      <input type="text" id="nom" name="nom" required>
+
+      <label for="whatsapp">2. Numéro WhatsApp (obligatoire)</label>
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="+2136xxxxxxxx" required>
+
+      <label for="email">3. Adresse e-mail (obligatoire)</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="age">4. Âge</label>
+      <select id="age" name="age" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Moins de 22 ans">Moins de 22 ans</option>
+        <option value="22 – 29 ans">22 – 29 ans</option>
+        <option value="30 – 39 ans">30 – 39 ans</option>
+        <option value="40 – 49 ans">40 – 49 ans</option>
+        <option value="50 ans et +">50 ans et +</option>
+      </select>
+
+      <div class="section-title">🎓 Profil académique & professionnel</div>
+
+      <label for="niveau">5. Niveau d’études le plus élevé</label>
+      <select id="niveau" name="niveau" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Aucun diplôme">Aucun diplôme</option>
+        <option value="Formation professionnelle">Formation professionnelle</option>
+        <option value="Bac">Bac</option>
+        <option value="Licence">Licence</option>
+        <option value="Master">Master</option>
+        <option value="Doctorat">Doctorat</option>
+      </select>
+
+      <label for="domaine">6. Domaine de formation / métier actuel</label>
+      <input type="text" id="domaine" name="domaine" required>
+
+      <label for="experience">7. Années d’expérience professionnelle</label>
+      <select id="experience" name="experience" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Aucune">Aucune</option>
+        <option value="Moins de 1 an">Moins de 1 an</option>
+        <option value="1 – 3 ans">1 – 3 ans</option>
+        <option value="3 – 5 ans">3 – 5 ans</option>
+        <option value="5 ans et +">5 ans et +</option>
+      </select>
+
+      <div class="section-title">🌍 Projet à l’étranger</div>
+
+      <label for="objectif">8. Quel est votre objectif principal ?</label>
+      <select id="objectif" name="objectif" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Travailler à l’étranger">Travailler à l’étranger</option>
+        <option value="Immigrer définitivement">Immigrer définitivement</option>
+        <option value="Les deux">Les deux</option>
+        <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+      </select>
+
+      <label>9. Pays qui vous intéressent actuellement (choix multiples)</label>
+      <div class="checkbox-group">
+        <div class="checkbox-row">
+          <input type="checkbox" name="pays" value="Canada" id="pays_canada">
+          <label for="pays_canada">Canada</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" name="pays" value="Pays du Golfe" id="pays_golfe">
+          <label for="pays_golfe">Pays du Golfe (UAE, Qatar, Arabie Saoudite…)</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" name="pays" value="Europe" id="pays_europe">
+          <label for="pays_europe">Europe</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" name="pays" value="Autre / Pas encore décidé" id="pays_autre">
+          <label for="pays_autre">Autre / Pas encore décidé</label>
+        </div>
+      </div>
+      <div class="hint">*Veuillez choisir au moins 1 pays.</div>
+
+      <div class="section-title">🗣️ Langues</div>
+
+      <label for="francais">10. Niveau de français</label>
+      <select id="francais" name="niveau_francais" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Faible">Faible</option>
+        <option value="Moyen">Moyen</option>
+        <option value="Bon">Bon</option>
+        <option value="Très bon">Très bon</option>
+      </select>
+
+      <label for="anglais">11. Niveau d’anglais</label>
+      <select id="anglais" name="niveau_anglais" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Aucun">Aucun</option>
+        <option value="Débutant">Débutant</option>
+        <option value="Intermédiaire">Intermédiaire</option>
+        <option value="Avancé">Avancé</option>
+      </select>
+
+      <div class="section-title">💰 Budget & timing</div>
+
+      <label for="budget">12. Quel budget êtes-vous prêt(e) à investir pour votre projet ?</label>
+      <select id="budget" name="budget" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Moins de 100 000 DA">Moins de 100 000 DA</option>
+        <option value="100 000 – 300 000 DA">100 000 – 300 000 DA</option>
+        <option value="300 000 – 600 000 DA">300 000 – 600 000 DA</option>
+        <option value="Plus de 600 000 DA">Plus de 600 000 DA</option>
+      </select>
+
+      <label for="timing">13. Quand souhaitez-vous partir à l’étranger ?</label>
+      <select id="timing" name="quand_partir" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Moins de 6 mois">Moins de 6 mois</option>
+        <option value="6 – 12 mois">6 – 12 mois</option>
+        <option value="Plus de 12 mois">Plus de 12 mois</option>
+        <option value="Pas encore sûr">Pas encore sûr</option>
+      </select>
+
+      <div class="section-title">🧠 Engagement & sérieux</div>
+
+      <label for="motivation">14. Pourquoi voulez-vous partir à l’étranger ?</label>
+      <textarea id="motivation" name="pourquoi_partir" required></textarea>
+
+      <label for="refus">15. Avez-vous déjà essuyé un refus de visa ?</label>
+      <select id="refus" name="refus_visa" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Oui">Oui</option>
+        <option value="Non">Non</option>
+      </select>
+
+      <label for="strategie">16. Êtes-vous prêt(e) à suivre une stratégie légale et réaliste, même si elle prend du temps ?</label>
+      <select id="strategie" name="strategie_legale" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Oui">Oui</option>
+        <option value="Non">Non</option>
+      </select>
+
+      <div class="section-title">✅ Validation finale</div>
+
+      <label>17. Confirmez-vous que :</label>
+      <div class="checkbox-group">
+        <div class="checkbox-row">
+          <input type="checkbox" id="c1" name="confirmation" value="Je comprends que cet audit n’est pas une promesse de visa" required>
+          <label for="c1">Je comprends que cet audit n’est pas une promesse de visa</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="c2" name="confirmation" value="Je souhaite une analyse honnête de ma situation" required>
+          <label for="c2">Je souhaite une analyse honnête de ma situation</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="c3" name="confirmation" value="Je suis une personne sérieuse prête à passer à l’action" required>
+          <label for="c3">Je suis une personne sérieuse prête à passer à l’action</label>
+        </div>
+      </div>
+
+      <!-- ✅ UTM + SOURCE hidden fields -->
+      <input type="hidden" name="landing_url" id="landing_url">
+      <input type="hidden" name="referrer" id="referrer">
+      <input type="hidden" name="traffic_source" id="traffic_source">
+
+      <input type="hidden" name="utm_source" id="utm_source">
+      <input type="hidden" name="utm_medium" id="utm_medium">
+      <input type="hidden" name="utm_campaign" id="utm_campaign">
+      <input type="hidden" name="utm_content" id="utm_content">
+      <input type="hidden" name="utm_term" id="utm_term">
+      <input type="hidden" name="utm_id" id="utm_id">
+      <input type="hidden" name="fbclid" id="fbclid">
+
+      <button type="submit">Envoyer ma demande</button>
+    </form>
+
+    <div class="thank-you" id="thankYou">
+      ✅ Merci ! Votre demande a été envoyée avec succès.<br>
+      Nous analyserons votre profil et vous contacterons sur WhatsApp.<br>
+      Redirection WhatsApp dans quelques secondes…
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    Nous ne sommes affiliés à aucune ambassade/consulat et nous ne délivrons aucun visa.
+    Nous proposons uniquement une analyse et un accompagnement stratégique.
   </p>
 
-  <form id="form">
-    <label>Nom et prénom</label>
-    <input type="text" name="nom" required>
+  <script>
+    const form = document.getElementById('form');
+    const thankYou = document.getElementById('thankYou');
+    const errorBox = document.getElementById('errorBox');
 
-    <label>Numéro WhatsApp</label>
-    <input type="tel" name="whatsapp" placeholder="+2135XXXXXXXX" required>
+    // ✅ Ton URL Apps Script
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
 
-    <label>Email</label>
-    <input type="email" name="email" required>
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
-    <label>Âge</label>
-    <select name="age" required>
-      <option value="">Choisissez</option>
-      <option>Moins de 22 ans</option>
-      <option>22 – 29 ans</option>
-      <option>30 – 39 ans</option>
-      <option>40 – 49 ans</option>
-      <option>50 ans et +</option>
-    </select>
+    function hasAtLeastOneCountry() {
+      return document.querySelectorAll('input[name="pays"]:checked').length > 0;
+    }
 
-    <label>Niveau d’études</label>
-    <select name="niveau" required>
-      <option value="">Choisissez</option>
-      <option>Formation professionnelle</option>
-      <option>Bac</option>
-      <option>Licence</option>
-      <option>Master</option>
-      <option>Doctorat</option>
-    </select>
+    // ✅ Auto-capture UTM + source
+    (function fillTracking() {
+      const qs = new URLSearchParams(window.location.search);
 
-    <label>Années d’expérience</label>
-    <select name="experience" required>
-      <option value="">Choisissez</option>
-      <option>Aucune</option>
-      <option>Moins de 1 an</option>
-      <option>1 – 3 ans</option>
-      <option>3 – 5 ans</option>
-      <option>5 ans et +</option>
-    </select>
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val || "";
+      };
 
-    <label>Budget disponible</label>
-    <select name="budget" required>
-      <option value="">Choisissez</option>
-      <option>Moins de 100 000 DA</option>
-      <option>100 000 – 300 000 DA</option>
-      <option>300 000 – 600 000 DA</option>
-      <option>Plus de 600 000 DA</option>
-    </select>
+      setVal("landing_url", window.location.href);
+      setVal("referrer", document.referrer || "");
 
-    <label>Pourquoi souhaitez-vous partir ?</label>
-    <textarea name="pourquoi_partir" required></textarea>
+      let source = "direct";
+      if (document.referrer) source = "referral";
+      if (qs.get("fbclid")) source = "facebook";
 
-    <!-- Hidden tracking -->
-    <input type="hidden" name="landing_url" id="landing_url">
-    <input type="hidden" name="referrer" id="referrer">
+      const us = (qs.get("utm_source") || "").toLowerCase();
+      if (us.includes("google")) source = "google";
+      if (us.includes("tiktok")) source = "tiktok";
+      if (us.includes("instagram")) source = "instagram";
 
-    <button type="submit">Envoyer ma demande</button>
-  </form>
+      setVal("traffic_source", source);
 
-  <div class="thank-you" id="thankYou">
-    ✅ Merci ! Votre demande a été envoyée.<br>
-    Vous allez être redirigé vers WhatsApp…
-  </div>
-</div>
+      setVal("utm_source", qs.get("utm_source"));
+      setVal("utm_medium", qs.get("utm_medium"));
+      setVal("utm_campaign", qs.get("utm_campaign"));
+      setVal("utm_content", qs.get("utm_content"));
+      setVal("utm_term", qs.get("utm_term"));
+      setVal("utm_id", qs.get("utm_id"));
+      setVal("fbclid", qs.get("fbclid"));
+    })();
 
-<p class="disclaimer">
-  Nous ne sommes affiliés à aucune ambassade ou consulat.  
-  Aucune garantie de visa.
-</p>
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.style.display = "none";
 
-<script>
-  const form = document.getElementById("form");
-  const thankYou = document.getElementById("thankYou");
+      if (!hasAtLeastOneCountry()) {
+        showError("Veuillez sélectionner au moins 1 pays dans la section « Pays qui vous intéressent ».");
+        return;
+      }
 
-  const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
+      const formData = new FormData(form);
 
-  document.getElementById("landing_url").value = window.location.href;
-  document.getElementById("referrer").value = document.referrer;
+      try {
+        await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
+        form.style.display = 'none';
+        thankYou.style.display = 'block';
 
-    await fetch(scriptURL, {
-      method: "POST",
-      body: data,
-      mode: "no-cors"
+        if (typeof fbq === 'function') {
+          fbq('track', 'Lead');
+        }
+
+        setTimeout(() => {
+          const msg = encodeURIComponent("Bonjour, je viens de soumettre le formulaire pour l’Audit d’Éligibilité Visa.");
+          window.location.href = "https://wa.me/213540686563?text=" + msg;
+        }, 3500);
+
+      } catch (error) {
+        showError("Erreur d’envoi. Veuillez réessayer.");
+      }
     });
-
-    form.style.display = "none";
-    thankYou.style.display = "block";
-
-    setTimeout(() => {
-      const msg = encodeURIComponent(
-        "Bonjour, je viens de soumettre le formulaire d’audit d’éligibilité visa."
-      );
-      window.location.href = "https://wa.me/213540686563?text=" + msg;
-    }, 2500);
-  });
-</script>
-
+  </script>
 </body>
 </html>
