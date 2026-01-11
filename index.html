@@ -2,14 +2,14 @@
 <html lang="fr" dir="ltr">
 <head>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
-<script>
-  if (window.location.hostname === "www.lesconcepteursdevasion.com") {
-    window.location.replace("https://lesconcepteursdevasion.com" + window.location.pathname);
-  }
-</script>
+  <script>
+    if (window.location.hostname === "www.lesconcepteursdevasion.com") {
+      window.location.replace("https://lesconcepteursdevasion.com" + window.location.pathname);
+    }
+  </script>
 
   <meta charset="UTF-8" />
   <meta name="google-site-verification" content="fQ-axX7wf0YcKVbydNAzqwKjfz9m6w5oTTzrElDhjnQ" />
@@ -283,6 +283,7 @@
       <label for="objectif">8. Quel est votre objectif principal ?</label>
       <select id="objectif" name="objectif" required>
         <option value="" disabled selected>Choisissez</option>
+        <option value="Étudier à l’étranger">Étudier à l’étranger</option>
         <option value="Travailler à l’étranger">Travailler à l’étranger</option>
         <option value="Immigrer définitivement">Immigrer définitivement</option>
         <option value="Les deux">Les deux</option>
@@ -302,6 +303,10 @@
         <div class="checkbox-row">
           <input type="checkbox" name="pays" value="Europe" id="pays_europe">
           <label for="pays_europe">Europe</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" name="pays" value="Australie / Nouvelle Zélande" id="pays_aus_nz">
+          <label for="pays_aus_nz">Australie / Nouvelle Zélande</label>
         </div>
         <div class="checkbox-row">
           <input type="checkbox" name="pays" value="Autre / Pas encore décidé" id="pays_autre">
@@ -487,8 +492,75 @@
         }
 
         setTimeout(() => {
-          const msg = encodeURIComponent("Bonjour, je viens de soumettre le formulaire pour l’Audit d’Éligibilité Visa.");
-          window.location.href = "https://wa.me/213540686563?text=" + msg;
+          // Récupérer les infos du formulaire
+          const nom = document.getElementById("nom").value.trim();
+          const whatsapp = document.getElementById("whatsapp").value.trim();
+          const email = document.getElementById("email").value.trim();
+          const age = document.getElementById("age").value;
+          const niveau = document.getElementById("niveau").value;
+          const domaine = document.getElementById("domaine").value.trim();
+          const experience = document.getElementById("experience").value;
+          const objectif = document.getElementById("objectif").value;
+
+          const pays = Array.from(document.querySelectorAll('input[name="pays"]:checked'))
+            .map(el => el.value)
+            .join(", ");
+
+          const niveauFrancais = document.getElementById("francais").value;
+          const niveauAnglais = document.getElementById("anglais").value;
+          const budget = document.getElementById("budget").value;
+          const quandPartir = document.getElementById("timing").value;
+
+          const pourquoiPartir = document.getElementById("motivation").value.trim();
+          const refusVisa = document.getElementById("refus").value;
+          const strategieLegale = document.getElementById("strategie").value;
+
+          // Tracking UTM/Source (hidden fields)
+          const traffic_source = document.getElementById("traffic_source").value;
+          const utm_source = document.getElementById("utm_source").value;
+          const utm_medium = document.getElementById("utm_medium").value;
+          const utm_campaign = document.getElementById("utm_campaign").value;
+          const utm_content = document.getElementById("utm_content").value;
+          const utm_term = document.getElementById("utm_term").value;
+
+          // Message WhatsApp (format clair)
+          const msg =
+`✅ Nouvelle demande — Audit Éligibilité Visa
+
+👤 Identité
+- Nom: ${nom}
+- WhatsApp: ${whatsapp}
+- Email: ${email}
+- Âge: ${age}
+
+🎓 Profil
+- Niveau: ${niveau}
+- Domaine/Métier: ${domaine}
+- Expérience: ${experience}
+
+🌍 Projet
+- Objectif: ${objectif}
+- Pays: ${pays}
+- Quand partir: ${quandPartir}
+
+🗣️ Langues
+- Français: ${niveauFrancais}
+- Anglais: ${niveauAnglais}
+
+💰 Budget
+- Budget: ${budget}
+
+🧠 Engagement
+- Motivation: ${pourquoiPartir}
+- Refus visa: ${refusVisa}
+- Stratégie légale: ${strategieLegale}
+
+📌 Tracking
+- Source: ${traffic_source}
+- UTM: ${utm_source} / ${utm_medium} / ${utm_campaign} / ${utm_content} / ${utm_term}
+`;
+
+          window.location.href = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
         }, 3500);
 
       } catch (error) {
