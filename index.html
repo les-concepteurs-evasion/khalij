@@ -184,6 +184,37 @@
       line-height: 1.7;
     }
 
+    .wa-buttons {
+      margin-top: 12px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .wa-btn, .copy-btn {
+      padding: 12px 16px;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-block;
+      cursor: pointer;
+      border: none;
+      font-size: 14px;
+    }
+
+    .wa-btn { background: #1e70c7; }
+    .wa-btn.alt { background: #155a9a; }
+    .copy-btn { background: #e07432; }
+
+    .wa-help {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.5;
+    }
+
     .disclaimer {
       margin-top: 16px;
       font-size: 12px;
@@ -411,7 +442,22 @@
     <div class="thank-you" id="thankYou">
       ✅ Merci ! Votre demande a été envoyée avec succès.<br>
       Nous analyserons votre profil et vous contacterons sur WhatsApp.<br>
-      Redirection WhatsApp dans quelques secondes…
+      Ouverture WhatsApp dans quelques secondes…
+    </div>
+
+    <!-- ✅ WhatsApp choice box (Personal/Business) + Copy -->
+    <div class="thank-you" id="waBox">
+      ✅ Merci ! Cliquez pour nous contacter :
+
+      <div class="wa-buttons">
+        <a id="waLink" href="#" target="_blank" rel="noopener" class="wa-btn">Ouvrir WhatsApp</a>
+        <a id="waLink2" href="#" target="_blank" rel="noopener" class="wa-btn alt">Ouvrir WhatsApp Business</a>
+        <button id="copyBtn" type="button" class="copy-btn">Copier le message</button>
+      </div>
+
+      <p class="wa-help">
+        Si WhatsApp ne s’ouvre pas automatiquement, utilisez un des boutons ci-dessus.
+      </p>
     </div>
   </div>
 
@@ -423,10 +469,17 @@
   <script>
     const form = document.getElementById('form');
     const thankYou = document.getElementById('thankYou');
+    const waBox = document.getElementById('waBox');
+    const waLink = document.getElementById('waLink');
+    const waLink2 = document.getElementById('waLink2');
+    const copyBtn = document.getElementById('copyBtn');
     const errorBox = document.getElementById('errorBox');
 
     // ✅ Ton URL Apps Script
     const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
+
+    // Cache la box WhatsApp au départ
+    waBox.style.display = "none";
 
     function showError(msg) {
       errorBox.textContent = msg;
@@ -560,8 +613,35 @@
 - UTM: ${utm_source} / ${utm_medium} / ${utm_campaign} / ${utm_content} / ${utm_term}
 `;
 
-          window.location.href = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
-        }, 3500);
+          // Liens (on ne peut pas forcer Business vs Personal, mais on maximise la compatibilité)
+          const urlApi = "https://api.whatsapp.com/send?phone=213540686563&text=" + encodeURIComponent(msg);
+          const urlWaMe = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
+
+          // Assigner liens aux boutons
+          waLink.href = urlApi;   // souvent meilleur (ouvre l'app installée)
+          waLink2.href = urlWaMe; // fallback
+
+          // Copier message
+          copyBtn.onclick = async () => {
+            try {
+              await navigator.clipboard.writeText(msg);
+              const old = copyBtn.textContent;
+              copyBtn.textContent = "✅ Copié !";
+              setTimeout(() => copyBtn.textContent = old, 2000);
+            } catch (e) {
+              alert("Impossible de copier automatiquement. Veuillez copier manuellement le texte.");
+            }
+          };
+
+          // Afficher la box de choix WhatsApp
+          thankYou.style.display = "none";
+          waBox.style.display = "block";
+
+          // (Optionnel) Essayer d'ouvrir automatiquement via urlApi
+          // Si le navigateur bloque, l'utilisateur a quand même les boutons
+          try { window.open(urlApi, "_blank"); } catch (e) {}
+
+        }, 2500);
 
       } catch (error) {
         showError("Erreur d’envoi. Veuillez réessayer.");
