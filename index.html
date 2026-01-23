@@ -174,6 +174,12 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     }
 
+    button:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .thank-you {
       display: none;
       text-align: center;
@@ -392,11 +398,10 @@
         </div>
       </div>
 
-      <!-- ✅ UTM + SOURCE hidden fields -->
+      <!-- UTM + SOURCE hidden fields -->
       <input type="hidden" name="landing_url" id="landing_url">
       <input type="hidden" name="referrer" id="referrer">
       <input type="hidden" name="traffic_source" id="traffic_source">
-
       <input type="hidden" name="utm_source" id="utm_source">
       <input type="hidden" name="utm_medium" id="utm_medium">
       <input type="hidden" name="utm_campaign" id="utm_campaign">
@@ -409,7 +414,7 @@
     </form>
 
     <div class="thank-you" id="thankYou">
-      ✅ Merci ! Votre demande a été envoyée avec succès.<br>
+      ✅ Merci ! Votre demande a été envoyée.<br>
       Nous analyserons votre profil et vous contacterons sur WhatsApp.<br>
       Redirection WhatsApp dans quelques secondes…
     </div>
@@ -425,7 +430,7 @@
     const thankYou = document.getElementById('thankYou');
     const errorBox = document.getElementById('errorBox');
 
-    // ✅ Ton URL Apps Script
+    // ✅ URL Apps Script (Web App /exec)
     const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
 
     function showError(msg) {
@@ -479,52 +484,78 @@
         return;
       }
 
+      const btn = form.querySelector('button[type="submit"]');
+      const oldBtnText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = "Envoi…";
+
       const formData = new FormData(form);
 
+      // ✅ rendre pays stable (checkbox multiples)
+      const paysList = Array.from(document.querySelectorAll('input[name="pays"]:checked'))
+        .map(el => el.value)
+        .join(", ");
+      formData.set("pays", paysList);
+
+      // ✅ timeout 6s (best-effort)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+      let sheetsOk = false;
+
       try {
-        await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
+        const res = await fetch(scriptURL, {
+          method: "POST",
+          body: formData,
+          signal: controller.signal
+        });
+        sheetsOk = res.ok;
+      } catch (err) {
+        console.warn("Sheets submission failed; continuing to WhatsApp:", err);
+        sheetsOk = false;
+      } finally {
+        clearTimeout(timeoutId);
+      }
 
-        form.style.display = 'none';
-        thankYou.style.display = 'block';
+      // ✅ UI: succès quoi qu'il arrive
+      form.style.display = "none";
+      thankYou.style.display = "block";
 
-        if (typeof fbq === 'function') {
-          fbq('track', 'Lead');
-        }
+      if (typeof fbq === 'function') fbq('track', 'Lead');
 
-        setTimeout(() => {
-          // Récupérer les infos du formulaire
-          const nom = document.getElementById("nom").value.trim();
-          const whatsapp = document.getElementById("whatsapp").value.trim();
-          const email = document.getElementById("email").value.trim();
-          const age = document.getElementById("age").value;
-          const niveau = document.getElementById("niveau").value;
-          const domaine = document.getElementById("domaine").value.trim();
-          const experience = document.getElementById("experience").value;
-          const objectif = document.getElementById("objectif").value;
+      // WhatsApp redirection (toujours)
+      setTimeout(() => {
+        const nom = document.getElementById("nom").value.trim();
+        const whatsapp = document.getElementById("whatsapp").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const age = document.getElementById("age").value;
+        const niveau = document.getElementById("niveau").value;
+        const domaine = document.getElementById("domaine").value.trim();
+        const experience = document.getElementById("experience").value;
+        const objectif = document.getElementById("objectif").value;
 
-          const pays = Array.from(document.querySelectorAll('input[name="pays"]:checked'))
-            .map(el => el.value)
-            .join(", ");
+        const pays = paysList;
 
-          const niveauFrancais = document.getElementById("francais").value;
-          const niveauAnglais = document.getElementById("anglais").value;
-          const budget = document.getElementById("budget").value;
-          const quandPartir = document.getElementById("timing").value;
+        const niveauFrancais = document.getElementById("francais").value;
+        const niveauAnglais = document.getElementById("anglais").value;
+        const budget = document.getElementById("budget").value;
+        const quandPartir = document.getElementById("timing").value;
 
-          const pourquoiPartir = document.getElementById("motivation").value.trim();
-          const refusVisa = document.getElementById("refus").value;
-          const strategieLegale = document.getElementById("strategie").value;
+        const pourquoiPartir = document.getElementById("motivation").value.trim();
+        const refusVisa = document.getElementById("refus").value;
+        const strategieLegale = document.getElementById("strategie").value;
 
-          // Tracking UTM/Source (hidden fields)
-          const traffic_source = document.getElementById("traffic_source").value;
-          const utm_source = document.getElementById("utm_source").value;
-          const utm_medium = document.getElementById("utm_medium").value;
-          const utm_campaign = document.getElementById("utm_campaign").value;
-          const utm_content = document.getElementById("utm_content").value;
-          const utm_term = document.getElementById("utm_term").value;
+        const traffic_source = document.getElementById("traffic_source").value;
+        const utm_source = document.getElementById("utm_source").value;
+        const utm_medium = document.getElementById("utm_medium").value;
+        const utm_campaign = document.getElementById("utm_campaign").value;
+        const utm_content = document.getElementById("utm_content").value;
+        const utm_term = document.getElementById("utm_term").value;
 
-          // Message WhatsApp (format clair)
-          const msg =
+        // (optionnel) ajout d’un indicateur interne
+        const sheetsStatus = sheetsOk ? "OK" : "KO";
+
+        const msg =
 `✅ Nouvelle demande — Audit Éligibilité Visa
 
 👤 Identité
@@ -558,14 +589,16 @@
 📌 Tracking
 - Source: ${traffic_source}
 - UTM: ${utm_source} / ${utm_medium} / ${utm_campaign} / ${utm_content} / ${utm_term}
+
+🧾 Sheets: ${sheetsStatus}
 `;
 
-          window.location.href = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
-        }, 3500);
+        window.location.href = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
+      }, 2500);
 
-      } catch (error) {
-        showError("Erreur d’envoi. Veuillez réessayer.");
-      }
+      // sécurité (si jamais tu changes l’UI)
+      btn.disabled = false;
+      btn.textContent = oldBtnText;
     });
   </script>
 </body>
