@@ -14,7 +14,7 @@
   <meta charset="UTF-8" />
   <meta name="google-site-verification" content="fQ-axX7wf0YcKVbydNAzqwKjfz9m6w5oTTzrElDhjnQ" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Audit Décision Internationale — 5 000 DA</title>
+  <title>Consultation Visa et Immigration — 5 000 DA</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -255,12 +255,12 @@
   <div class="container">
     <img src="les concepteur.png" alt="Logo" class="logo">
 
-    <h1>Audit Décision Internationale</h1>
-    <div class="price-badge">💼 Audit sur rendez-vous — 5 000 DA (Présentiel au siège ou Google Meet)</div>
+    <h1>Consultation Visa et Immigration</h1>
+    <div class="price-badge">💼 Consultation sur rendez-vous — 5 000 DA (Présentiel au siège ou Google Meet)</div>
 
     <p class="subtitle">
       Ce formulaire sert à <b>valider votre sérieux</b> avant un rendez-vous d’analyse.<br>
-      ⚠️ <b>Aucune information gratuite</b> : nous travaillons uniquement via audit.
+      ⚠️ <b>Aucune information gratuite</b> : nous travaillons uniquement via consultation.
     </p>
 
     <div class="error" id="errorBox"></div>
@@ -386,7 +386,7 @@
 
       <div class="section-title">💰 Budget & timing</div>
 
-      <label for="budget">14. Budget total prévu pour votre projet (hors audit)</label>
+      <label for="budget">14. Budget total prévu pour votre projet (hors consultation)</label>
       <select id="budget" name="budget" required>
         <option value="" disabled selected>Choisissez</option>
         <option value="Moins de 100 000 DA">Moins de 100 000 DA</option>
@@ -429,8 +429,8 @@
       <label>19. Confirmez-vous que :</label>
       <div class="checkbox-group">
         <div class="checkbox-row">
-          <input type="checkbox" id="c1" name="confirmation" value="Je comprends que l’audit n’est pas une promesse de visa" required>
-          <label for="c1">Je comprends que l’audit n’est pas une promesse de visa</label>
+          <input type="checkbox" id="c1" name="confirmation" value="Je comprends que la consultation n’est pas une promesse de visa" required>
+          <label for="c1">Je comprends que la consultation n’est pas une promesse de visa</label>
         </div>
         <div class="checkbox-row">
           <input type="checkbox" id="c2" name="confirmation" value="Je souhaite une analyse honnête (GO/NO GO)" required>
@@ -441,8 +441,8 @@
           <label for="c3">Je suis prêt(e) à respecter les règles et documents demandés</label>
         </div>
         <div class="checkbox-row">
-          <input type="checkbox" id="c4" name="confirmation_audit" value="Je confirme que l’audit coûte 5 000 DA et que le rendez-vous est confirmé après paiement" required>
-          <label for="c4"><b>Je confirme que l’audit coûte 5 000 DA</b> et que le rendez-vous est confirmé après paiement</label>
+          <input type="checkbox" id="c4" name="confirmation_consultation" value="Je confirme que la consultation coûte 5 000 DA et que le rendez-vous est confirmé après paiement" required>
+          <label for="c4"><b>Je confirme que la consultation coûte 5 000 DA</b> et que le rendez-vous est confirmé après paiement</label>
         </div>
       </div>
 
@@ -458,12 +458,12 @@
       <input type="hidden" name="utm_id" id="utm_id">
       <input type="hidden" name="fbclid" id="fbclid">
 
-      <button type="submit">Postuler pour l’audit</button>
+      <button type="submit">Postuler pour la consultation</button>
     </form>
 
     <div class="thank-you" id="thankYou">
       ✅ Merci ! Votre demande a été envoyée.<br>
-      Nous vous contactons sur WhatsApp pour confirmer le paiement et fixer le rendez-vous.<br>
+      Nous vous contactons sur WhatsApp pour confirmer le paiement et fixer la consultation.<br>
       Redirection WhatsApp dans quelques secondes…
     </div>
   </div>
@@ -531,7 +531,7 @@
       setVal("fbclid", qs.get("fbclid"));
     })();
 
-    // ✅ Small UI helper: remind payment rule when choosing format
+    // ✅ UI reminder when choosing format
     const formatRDV = document.getElementById("format_rdv");
     if (formatRDV) {
       formatRDV.addEventListener("change", () => {
@@ -552,7 +552,7 @@
         return;
       }
 
-      // 2) Hard filters (to stop free info seekers)
+      // 2) Hard filters
       const budgetVal = document.getElementById("budget").value;
       if (budgetVal === "Moins de 100 000 DA") {
         showError("Votre budget actuel est trop faible pour un projet international réaliste. Nous préférons vous éviter de perdre du temps et de l’argent. Augmentez votre budget puis repostulez.");
@@ -565,10 +565,10 @@
         return;
       }
 
-      // 3) Ensure audit confirmation checkbox is checked (already required, but keep explicit)
+      // 3) Ensure consultation confirmation checkbox is checked
       const c4 = document.getElementById("c4");
       if (!c4.checked) {
-        showError("Veuillez confirmer que l’audit coûte 5 000 DA et que le rendez-vous est confirmé après paiement.");
+        showError("Veuillez confirmer que la consultation coûte 5 000 DA et que le rendez-vous est confirmé après paiement.");
         return;
       }
 
@@ -611,7 +611,7 @@
 
       if (typeof fbq === 'function') fbq('track', 'Lead');
 
-      // WhatsApp redirection (toujours)
+      // WhatsApp redirection
       setTimeout(() => {
         const nom = document.getElementById("nom").value.trim();
         const whatsapp = document.getElementById("whatsapp").value.trim();
@@ -648,10 +648,10 @@
         const sheetsStatus = sheetsOk ? "OK" : "KO";
 
         const msg =
-`✅ Nouvelle demande — AUDIT DÉCISION INTERNATIONALE (5 000 DA)
+`✅ Nouvelle demande — CONSULTATION VISA ET IMMIGRATION (5 000 DA)
 
 🧾 Règle
-- Audit : 5 000 DA
+- Consultation : 5 000 DA
 - RDV confirmé après paiement
 - Format : ${format_rdv}
 - Créneau souhaité : ${creneau}
@@ -676,7 +676,7 @@
 - Français: ${niveauFrancais}
 - Anglais: ${niveauAnglais}
 
-💰 Budget total (hors audit)
+💰 Budget total (hors consultation)
 - Budget: ${budget}
 
 🧠 Engagement
