@@ -14,7 +14,7 @@
   <meta charset="UTF-8" />
   <meta name="google-site-verification" content="fQ-axX7wf0YcKVbydNAzqwKjfz9m6w5oTTzrElDhjnQ" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Évaluation de Profil & Stratégie d'Immigration Canada — 5 000 DA</title>
+  <title>Accompagnement pour le programme d’immigration Canada entry express</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -66,7 +66,7 @@
       color: #1e70c7;
       text-align: center;
       margin-bottom: 10px;
-      font-size: 24px;
+      font-size: 22px;
       line-height: 1.35;
     }
 
@@ -76,20 +76,6 @@
       color: #444;
       font-size: 14px;
       line-height: 1.6;
-    }
-
-    .price-badge {
-      display: inline-block;
-      margin: 0 auto 18px auto;
-      background: rgba(30,112,199,0.10);
-      border: 1px solid rgba(30,112,199,0.25);
-      color: #1e70c7;
-      font-weight: 800;
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      text-align: center;
-      width: 100%;
     }
 
     .section-title {
@@ -123,8 +109,6 @@
       box-shadow: 0 3px 8px rgba(0,0,0,0.05);
     }
 
-    form textarea { min-height: 110px; resize: vertical; }
-
     form input:focus, form select:focus, form textarea:focus {
       border-color: #e07432;
       box-shadow: 0 6px 15px rgba(224,116,50,0.3);
@@ -133,26 +117,6 @@
     }
 
     #whatsapp { direction: ltr; text-align: left; }
-
-    .checkbox-group {
-      border: 1px solid rgba(30,112,199,0.35);
-      border-radius: 12px;
-      padding: 12px 12px 2px 12px;
-      margin-bottom: 14px;
-      background: rgba(255,255,255,0.6);
-    }
-
-    .checkbox-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 10px;
-      color: #333;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .checkbox-row input { width: auto; margin: 2px 0 0 0; box-shadow: none; }
 
     .hint { font-size: 12px; color: #666; margin-top: -8px; margin-bottom: 12px; }
 
@@ -164,18 +128,6 @@
       padding: 10px 12px;
       border-radius: 12px;
       margin-bottom: 14px;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .success-note {
-      display: none;
-      background: rgba(30, 112, 199, 0.10);
-      border: 1px solid rgba(30,112,199,0.25);
-      color: #154a80;
-      padding: 10px 12px;
-      border-radius: 12px;
-      margin: 10px 0 14px 0;
       font-size: 13px;
       line-height: 1.5;
     }
@@ -229,7 +181,7 @@
 
     @media (max-width: 600px) {
       .container { padding: 26px 18px; }
-      h1 { font-size: 21px; }
+      h1 { font-size: 19px; }
       .logo { width: 170px; }
     }
   </style>
@@ -255,16 +207,14 @@
   <div class="container">
     <img src="les concepteur.png" alt="Logo" class="logo">
 
-    <h1>Stratégie & Immigration Canada</h1>
-    <div class="price-badge">🇨🇦 Évaluation de Profil — 5 000 DA (Au bureau à Alger ou via Google Meet)</div>
+    <h1>Accompagnement pour le programme d’immigration Canada entry express</h1>
 
     <p class="subtitle">
-      L'immigration au Canada est un système de points strict (Âge, Diplômes, Expérience, Langues).<br>
-      Ce formulaire permet de vérifier votre éligibilité. ⚠️ <b>La consultation sera personnalisée en fonction de votre situation</b> : un expert en immigration vous accompagnera étape par étape.
+      Le programme d’immigration Canada entry express est un système de points strict (Âge, Diplômes, Expérience professionnelle, Langues, budget).<br>
+      Si vous n’avez pas ses critères vous n’êtes pas éligible. ⚠️
     </p>
 
     <div class="error" id="errorBox"></div>
-    <div class="success-note" id="successNote"></div>
 
     <form id="form">
       <div class="section-title">🧑‍💼 Informations de base</div>
@@ -275,10 +225,7 @@
       <label for="whatsapp">2. Numéro WhatsApp (obligatoire)</label>
       <input type="tel" id="whatsapp" name="whatsapp" placeholder="+2136xxxxxxxx" required>
 
-      <label for="email">3. Adresse e-mail (obligatoire)</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="age">4. Âge</label>
+      <label for="age">3. Âge</label>
       <select id="age" name="age" required>
         <option value="" disabled selected>Choisissez</option>
         <option value="Moins de 22 ans">Moins de 22 ans</option>
@@ -287,27 +234,9 @@
         <option value="Plus de 45 ans">Plus de 45 ans</option>
       </select>
 
-      <div class="section-title">📍 Format du rendez-vous</div>
-
-      <label for="format_rdv">5. Format souhaité</label>
-      <select id="format_rdv" name="format_rdv" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="Présentiel (au bureau à Alger)">Présentiel (au bureau à Alger)</option>
-        <option value="En ligne (Google Meet)">En ligne (Google Meet)</option>
-      </select>
-
-      <label for="creneau">6. L'heure souhaitée du rendez-vous </label>
-      <select id="creneau" name="creneau_souhaite" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="Matin (9h–12h)">Matin (9h–12h)</option>
-        <option value="Après-midi (13h–17h)">Après-midi (13h–17h)</option>
-        <option value="Soir (17h–20h)">Soir (17h–20h)</option>
-      </select>
-      <div class="hint">*Le rendez-vous est confirmé après paiement (5 000 DA) et validation.</div>
-
       <div class="section-title">🎓 Profil académique & professionnel</div>
 
-      <label for="niveau">7. Niveau d’études le plus élevé</label>
+      <label for="niveau">4. Niveau d’études le plus élevé</label>
       <select id="niveau" name="niveau" required>
         <option value="" disabled selected>Choisissez</option>
         <option value="Doctorat / Master / Ingénieur">Doctorat / Master / Ingénieur</option>
@@ -316,10 +245,10 @@
         <option value="Niveau secondaire ou inférieur">Niveau secondaire ou inférieur</option>
       </select>
 
-      <label for="domaine">8. Domaine de formation / métier actuel</label>
+      <label for="domaine">5. Domaine de formation / métier actuel</label>
       <input type="text" id="domaine" name="domaine" required>
 
-      <label for="experience">9. Années d’expérience professionnelle qualifiée</label>
+      <label for="experience">6. Années d’expérience professionnelle qualifiée</label>
       <select id="experience" name="experience" required>
         <option value="" disabled selected>Choisissez</option>
         <option value="Moins de 1 an">Moins de 1 an</option>
@@ -329,7 +258,7 @@
 
       <div class="section-title">🇨🇦 Votre Projet Canada</div>
 
-      <label for="objectif">10. Quelle est la voie principale que vous envisagez ?</label>
+      <label for="objectif">7. Quelle est la voie principale que vous envisagez ?</label>
       <select id="objectif" name="objectif" required>
         <option value="" disabled selected>Choisissez</option>
         <option value="Immigration directe (Travailleur qualifié / Résidence permanente)">Immigration directe (Travailleur qualifié)</option>
@@ -340,7 +269,7 @@
 
       <div class="section-title">🗣️ Langues (Crucial pour le Canada)</div>
 
-      <label for="francais">11. Niveau de français (Parlé/Écrit)</label>
+      <label for="francais">8. Niveau de français (Parlé/Écrit)</label>
       <select id="francais" name="niveau_francais" required>
         <option value="" disabled selected>Choisissez</option>
         <option value="Excellent">Excellent / Courant </option>
@@ -348,7 +277,7 @@
         <option value="Débutant / Faible">Débutant / Faible</option>
       </select>
 
-      <label for="anglais">12. Niveau d’anglais (Donne un bonus de points massif)</label>
+      <label for="anglais">9. Niveau d’anglais (Donne un bonus de points massif)</label>
       <select id="anglais" name="niveau_anglais" required>
         <option value="" disabled selected>Choisissez</option>
         <option value="Avancé / Courant ">Avancé / Courant </option>
@@ -358,7 +287,7 @@
 
       <div class="section-title">💰 Budget & timing</div>
 
-      <label for="budget">13. Quel est le budget total approximatif disponible (Fonds propres ou Garants) ?</label>
+      <label for="budget">10. Quel est le budget total approximatif disponible (Fonds propres ou Garants) ?</label>
       <select id="budget" name="budget" required>
         <option value="" disabled selected>Choisissez</option>
         <option value="plus de 500.000 DA">plus de 500.000 DA</option>
@@ -367,7 +296,7 @@
       </select>
       <div class="hint">*Le Canada exige légalement une preuve de fonds pour s'installer ou étudier.</div>
 
-      <label for="timing">14. Quand souhaitez-vous lancer vos démarches ?</label>
+      <label for="timing">11. Quand souhaitez-vous lancer vos démarches ?</label>
       <select id="timing" name="quand_partir" required>
         <option value="" disabled selected>Choisissez</option>
         <option value="Immédiatement">Immédiatement</option>
@@ -375,35 +304,16 @@
         <option value="Plus de 6 mois">Plus de 6 mois</option>
       </select>
 
-      <div class="section-title">🧠 Engagement & sérieux</div>
+      <div class="section-title">🚀 Décision & Accompagnement</div>
 
-      <label for="motivation">15. Expliquez brièvement votre projet d'immigration (réponse détaillée requise)</label>
-      <textarea id="motivation" name="pourquoi_partir" required></textarea>
-
-      <label for="refus">16. Avez-vous déjà essuyé un refus de visa (tous pays confondus, notamment Canada/Schengen) ?</label>
-      <select id="refus" name="refus_visa" required>
+      <label for="decision">12. Si vous êtes éligible pour l’immigration Canada, est-ce que vous êtes prêt pour acheter notre accompagnement et commencer les démarches ?</label>
+      <select id="decision" name="decision_achat" required>
         <option value="" disabled selected>Choisissez</option>
-        <option value="Oui">Oui (Un refus n'est pas éliminatoire mais doit être analysé)</option>
-        <option value="Non">Non</option>
+        <option value="Je veux acheter et commencer immédiatement">1 - Je veux acheter et commencer immédiatement</option>
+        <option value="Je veux plus d’informations avant d’acheter">2 - Je veux plus d’informations avant d’acheter</option>
+        <option value="J’ai pas de budget">3 - J’ai pas de budget</option>
+        <option value="Je ne suis pas encore prêt pour faire les procédures d’immigration">4 - Je ne suis pas encore prêt pour faire les procédures d’immigration</option>
       </select>
-
-      <div class="section-title">✅ Validation finale (obligatoire)</div>
-
-      <label>17. Confirmez-vous que :</label>
-      <div class="checkbox-group">
-        <div class="checkbox-row">
-          <input type="checkbox" id="c1" name="confirmation" value="Je comprends que la consultation n’est pas une promesse de visa" required>
-          <label for="c1">Je comprends que cette consultation est une analyse technique et non une promesse de visa</label>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" id="c2" name="confirmation" value="Je souhaite une analyse honnête (GO/NO GO)" required>
-          <label for="c2">Je souhaite une analyse 100% honnête (GO / NO-GO) de mes chances réelles</label>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" id="c3" name="confirmation_consultation" value="Je confirme que la consultation coûte 5 000 DA et que le rendez-vous est confirmé après paiement" required>
-          <label for="c3"><b>Je confirme que la consultation coûte 5 000 DA</b> (via BaridiMob, CCP ou espèces) pour bloquer mon créneau.</label>
-        </div>
-      </div>
 
       <!-- UTM + SOURCE hidden fields -->
       <input type="hidden" name="landing_url" id="landing_url">
@@ -422,7 +332,7 @@
 
     <div class="thank-you" id="thankYou">
       ✅ Merci ! Votre dossier Canada a été envoyé.<br>
-      Nous vous contactons sur WhatsApp pour confirmer le paiement et fixer la consultation.<br>
+      Nous vous contactons sur WhatsApp pour analyser votre éligibilité.<br>
       Redirection WhatsApp en cours…
     </div>
   </div>
@@ -436,24 +346,16 @@
     const form = document.getElementById('form');
     const thankYou = document.getElementById('thankYou');
     const errorBox = document.getElementById('errorBox');
-    const successNote = document.getElementById('successNote');
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
 
     function showError(msg) {
       errorBox.textContent = msg;
       errorBox.style.display = "block";
-      successNote.style.display = "none";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function showSuccess(msg) {
-      successNote.textContent = msg;
-      successNote.style.display = "block";
-      errorBox.style.display = "none";
-    }
-
-    // ✅ Auto-capture UTM + source
+    // Auto-capture UTM + source
     (function fillTracking() {
       const qs = new URLSearchParams(window.location.search);
 
@@ -484,25 +386,9 @@
       setVal("fbclid", qs.get("fbclid"));
     })();
 
-    const formatRDV = document.getElementById("format_rdv");
-    if (formatRDV) {
-      formatRDV.addEventListener("change", () => {
-        if (formatRDV.value) {
-          showSuccess("Rappel : le rendez-vous est bloqué uniquement après réception du paiement de 5 000 DA.");
-        }
-      });
-    }
-
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorBox.style.display = "none";
-      successNote.style.display = "none";
-
-      const c3 = document.getElementById("c3");
-      if (!c3.checked) {
-        showError("Veuillez valider toutes les cases de confirmation obligatoires pour continuer.");
-        return;
-      }
 
       const btn = form.querySelector('button[type="submit"]');
       const oldBtnText = btn.textContent;
@@ -510,7 +396,7 @@
       btn.textContent = "Envoi…";
 
       const formData = new FormData(form);
-      formData.set("pays", "Canada Only"); // Forcer la valeur de destination pour la feuille Google Sheets
+      formData.set("pays", "Canada Only");
 
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 6000);
@@ -539,11 +425,7 @@
       setTimeout(() => {
         const nom = document.getElementById("nom").value.trim();
         const whatsapp = document.getElementById("whatsapp").value.trim();
-        const email = document.getElementById("email").value.trim();
         const age = document.getElementById("age").value;
-
-        const format_rdv = document.getElementById("format_rdv").value;
-        const creneau = document.getElementById("creneau").value;
 
         const niveau = document.getElementById("niveau").value;
         const domaine = document.getElementById("domaine").value.trim();
@@ -556,9 +438,7 @@
 
         const budget = document.getElementById("budget").value;
         const quandPartir = document.getElementById("timing").value;
-
-        const pourquoiPartir = document.getElementById("motivation").value.trim();
-        const refusVisa = document.getElementById("refus").value;
+        const decisionAchat = document.getElementById("decision").value;
 
         const traffic_source = document.getElementById("traffic_source").value;
         const utm_source = document.getElementById("utm_source").value;
@@ -568,16 +448,11 @@
         const sheetsStatus = sheetsOk ? "OK" : "KO";
 
         const msg =
-`✅ Nouvelle demande — STRATÉGIE IMMIGRATION CANADA (5 000 DA)
-
-🧾 Format & Créneau
-- Format: ${format_rdv}
-- Créneau: ${creneau}
+`✅ Nouvelle demande — ENTRÉE EXPRESS CANADA
 
 👤 Identité
 - Nom: ${nom}
 - WhatsApp: ${whatsapp}
-- Email: ${email}
 - Âge: ${age}
 
 🎓 Profil Académique
@@ -593,12 +468,9 @@
 - Français: ${niveauFrancais}
 - Anglais: ${niveauAnglais}
 
-💰 Profil Financier
+💰 Profil Financier & Intention
 - Budget prévu: ${budget}
-
-🧠 Historique & Motivation
-- Projet détaillé: ${pourquoiPartir}
-- Antécédents Refus: ${refusVisa}
+- Décision d'accompagnement: ${decisionAchat}
 
 📌 Tracking Source
 - Source: ${traffic_source} | UTM: ${utm_source} / ${utm_medium} / ${utm_campaign}
