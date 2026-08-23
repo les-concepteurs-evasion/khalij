@@ -331,8 +331,8 @@
     </form>
 
     <div class="thank-you" id="thankYou">
-      ✅ Merci ! Votre dossier Canada a bien été enregistré.<br>
-      Notre équipe analyse actuellement vos critères d'éligibilité.<br>
+      ✅ Merci ! Votre formulaire a bien été envoyé.<br>
+      Votre demande a été transmise avec succès à notre équipe d'évaluation.<br>
       <span id="redirectText">Redirection WhatsApp en cours…</span>
     </div>
   </div>
@@ -350,8 +350,7 @@
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
 
-    // Calcul de score côté client pour validation instantanée
-    function calculateClientScore() {
+    function calculateScore() {
       let score = 0;
 
       const decision = document.getElementById("decision").value;
@@ -434,8 +433,8 @@
       e.preventDefault();
       errorBox.style.display = "none";
 
-      const clientScore = calculateClientScore();
-      const isEligible = clientScore >= 60;
+      const score = calculateScore();
+      const isQualified = score >= 60;
 
       const btn = form.querySelector('button[type="submit"]');
       const oldBtnText = btn.textContent;
@@ -455,7 +454,7 @@
           signal: controller.signal
         });
       } catch (err) {
-        console.warn("Transmission info:", err);
+        console.warn("Transmission log:", err);
       } finally {
         clearTimeout(timeoutId);
       }
@@ -463,13 +462,13 @@
       form.style.display = "none";
       thankYou.style.display = "block";
 
-      // Si le prospect n'atteint pas 60 points : aucun suivi commercial ni WhatsApp
-      if (!isEligible) {
-        redirectText.textContent = "Nous reviendrons vers vous par message si une mise à jour de votre dossier est nécessaire.";
+      // 🛑 SI SCORE < 60 : AUCUNE REDIRECTION WHATSAPP, MESSAGE POSITIF STANDARD
+      if (!isQualified) {
+        redirectText.textContent = "Nous étudierons votre profil et reviendrons vers vous dès que possible.";
         return;
       }
 
-      // Si le prospect est éligible (Score >= 60) : conversion Meta + Redirection WhatsApp
+      // ✅ SI SCORE >= 60 : CONVERSION META + REDIRECTION WHATSAPP
       if (typeof fbq === 'function') fbq('track', 'Lead');
 
       setTimeout(() => {
