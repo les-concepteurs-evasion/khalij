@@ -163,7 +163,7 @@
       display: none;
       text-align: center;
       color: #1e70c7;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 600;
       margin-top: 10px;
       line-height: 1.7;
@@ -304,15 +304,15 @@
         <option value="Plus de 6 mois">Plus de 6 mois</option>
       </select>
 
-      <div class="section-title">🚀 Décision & Accompagnement</div>
+      <div class="section-title">🚀 VOTRE ENGAGEMENT</div>
 
-      <label for="decision">12. Si vous êtes éligible pour l’immigration Canada, est-ce que vous êtes prêt pour acheter notre accompagnement et commencer les démarches ?</label>
+      <label for="decision">12. Si votre profil correspond aux critères et que la stratégie proposée vous convient, quelle situation vous correspond le mieux ?</label>
       <select id="decision" name="decision_achat" required>
         <option value="" disabled selected>Choisissez</option>
-        <option value="Je veux acheter et commencer immédiatement">1 - Je veux acheter et commencer immédiatement</option>
-        <option value="Je veux plus d’informations avant d’acheter">2 - Je veux plus d’informations avant d’acheter</option>
-        <option value="J’ai pas de budget">3 - J’ai pas de budget</option>
-        <option value="Je ne suis pas encore prêt pour faire les procédures d’immigration">4 - Je ne suis pas encore prêt pour faire les procédures d’immigration</option>
+        <option value="A. Je suis prêt à commencer rapidement et à investir dans mon projet">A. 🔥 Je suis prêt à commencer rapidement et à investir dans mon projet.</option>
+        <option value="B. Je suis intéressé mais j’ai besoin de connaître les détails et le budget avant de décider">B. 🟡 Je suis intéressé, mais j’ai besoin de connaître les détails et le budget avant de décider.</option>
+        <option value="C. Je veux simplement obtenir des informations pour le moment">C. 🔵 Je veux simplement obtenir des informations pour le moment.</option>
+        <option value="D. Je cherche uniquement une solution gratuite">D. ❌ Je cherche uniquement une solution gratuite.</option>
       </select>
 
       <!-- UTM + SOURCE hidden fields -->
@@ -331,9 +331,9 @@
     </form>
 
     <div class="thank-you" id="thankYou">
-      ✅ Merci ! Votre dossier Canada a été envoyé.<br>
-      Nous vous contactons sur WhatsApp pour analyser votre éligibilité.<br>
-      Redirection WhatsApp en cours…
+      ✅ Merci ! Votre dossier Canada a bien été enregistré.<br>
+      Notre équipe analyse actuellement vos critères d'éligibilité.<br>
+      <span id="redirectText">Redirection WhatsApp en cours…</span>
     </div>
   </div>
 
@@ -345,14 +345,58 @@
   <script>
     const form = document.getElementById('form');
     const thankYou = document.getElementById('thankYou');
+    const redirectText = document.getElementById('redirectText');
     const errorBox = document.getElementById('errorBox');
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
 
-    function showError(msg) {
-      errorBox.textContent = msg;
-      errorBox.style.display = "block";
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    // Calcul de score côté client pour validation instantanée
+    function calculateClientScore() {
+      let score = 0;
+
+      const decision = document.getElementById("decision").value;
+      if (decision.startsWith("A.")) score += 15;
+      else if (decision.startsWith("B.")) score += 5;
+      else if (decision.startsWith("C.")) score -= 5;
+      else if (decision.startsWith("D.")) score -= 15;
+
+      const budget = document.getElementById("budget").value;
+      if (budget.includes("2.000.000")) score += 30;
+      else if (budget.includes("1.000.000")) score += 20;
+      else if (budget.includes("500.000")) score += 10;
+      else score += 5;
+
+      const fr = document.getElementById("francais").value;
+      if (fr === "Excellent") score += 15;
+      else if (fr === "Intermédiaire") score += 8;
+      else score += 2;
+
+      const en = document.getElementById("anglais").value;
+      if (en === "Avancé / Courant") score += 15;
+      else if (en === "Intermédiaire / Base professionnelle") score += 8;
+      else score += 2;
+
+      const exp = document.getElementById("experience").value;
+      if (exp.includes("3 ans ou plus")) score += 15;
+      else if (exp.includes("1 à 2 ans")) score += 10;
+      else score += 3;
+
+      const niveau = document.getElementById("niveau").value;
+      if (niveau.includes("Doctorat / Master")) score += 12;
+      else if (niveau.includes("Licence / TS")) score += 8;
+      else if (niveau.includes("Baccalauréat")) score += 5;
+      else score += 2;
+
+      const age = document.getElementById("age").value;
+      if (age.includes("22 – 35 ans")) score += 12;
+      else if (age.includes("36 – 45 ans")) score += 7;
+      else if (age.includes("Moins de 22 ans")) score += 5;
+      else score += 2;
+
+      const objectif = document.getElementById("objectif").value;
+      if (objectif.includes("Je ne sais pas encore")) score -= 2;
+
+      return score;
     }
 
     // Auto-capture UTM + source
@@ -390,6 +434,9 @@
       e.preventDefault();
       errorBox.style.display = "none";
 
+      const clientScore = calculateClientScore();
+      const isEligible = clientScore >= 60;
+
       const btn = form.querySelector('button[type="submit"]');
       const oldBtnText = btn.textContent;
       btn.disabled = true;
@@ -401,18 +448,14 @@
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-      let sheetsOk = false;
-
       try {
-        const res = await fetch(scriptURL, {
+        await fetch(scriptURL, {
           method: "POST",
           body: formData,
           signal: controller.signal
         });
-        sheetsOk = res.ok;
       } catch (err) {
-        console.warn("Sheets submission failed; continuing to WhatsApp:", err);
-        sheetsOk = false;
+        console.warn("Transmission info:", err);
       } finally {
         clearTimeout(timeoutId);
       }
@@ -420,6 +463,13 @@
       form.style.display = "none";
       thankYou.style.display = "block";
 
+      // Si le prospect n'atteint pas 60 points : aucun suivi commercial ni WhatsApp
+      if (!isEligible) {
+        redirectText.textContent = "Nous reviendrons vers vous par message si une mise à jour de votre dossier est nécessaire.";
+        return;
+      }
+
+      // Si le prospect est éligible (Score >= 60) : conversion Meta + Redirection WhatsApp
       if (typeof fbq === 'function') fbq('track', 'Lead');
 
       setTimeout(() => {
@@ -445,8 +495,6 @@
         const utm_medium = document.getElementById("utm_medium").value;
         const utm_campaign = document.getElementById("utm_campaign").value;
 
-        const sheetsStatus = sheetsOk ? "OK" : "KO";
-
         const msg =
 `✅ Nouvelle demande — ENTRÉE EXPRESS CANADA
 
@@ -470,18 +518,14 @@
 
 💰 Profil Financier & Intention
 - Budget prévu: ${budget}
-- Décision d'accompagnement: ${decisionAchat}
+- Situation engagement: ${decisionAchat}
 
 📌 Tracking Source
 - Source: ${traffic_source} | UTM: ${utm_source} / ${utm_medium} / ${utm_campaign}
-- Sheets DB: ${sheetsStatus}
 `;
 
         window.location.href = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
-      }, 2200);
-
-      btn.disabled = false;
-      btn.textContent = oldBtnText;
+      }, 2000);
     });
   </script>
 </body>
