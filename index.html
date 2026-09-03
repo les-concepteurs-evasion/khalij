@@ -61,7 +61,6 @@
     }
     .logo:hover { transform: scale(1.05); }
 
-    /* Conteneur VSL pour affichage fluide et bords arrondis */
     .vsl-wrapper {
       width: 100%;
       margin: 18px 0 24px 0;
@@ -311,7 +310,7 @@
         <option value="Très faible / Aucun">Très faible / Aucun</option>
       </select>
 
-      <div class="section-title">💰 Budget & timing</div>
+      <div class="section-title">💰 Budget & formule souhaitée</div>
 
       <label for="budget">10. Quel est le budget total approximatif disponible (Fonds propres ou Garants) ?</label>
       <select id="budget" name="budget" required>
@@ -322,23 +321,14 @@
       </select>
       <div class="hint">*Le Canada exige légalement une preuve de fonds pour s'installer ou étudier.</div>
 
-      <label for="timing">11. Quand souhaitez-vous lancer vos démarches ?</label>
-      <select id="timing" name="quand_partir" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="Immédiatement">Immédiatement</option>
-        <option value="Dans les 6 prochains mois">Dans les 6 prochains mois</option>
-        <option value="Plus de 6 mois">Plus de 6 mois</option>
-      </select>
-
       <div class="section-title">🚀 VOTRE ENGAGEMENT</div>
 
-      <label for="decision">12. Si votre profil correspond aux critères et que la stratégie proposée vous convient, quelle situation vous correspond le mieux ?</label>
-      <select id="decision" name="decision_achat" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="A. Je suis prêt à commencer rapidement et à investir dans mon projet">A. 🔥 Je suis prêt à commencer rapidement et à investir dans mon projet.</option>
-        <option value="B. Je suis intéressé mais j’ai besoin de connaître les détails et le budget avant de décider">B. 🟡 Je suis intéressé, mais j’ai besoin de connaître les détails et le budget avant de décider.</option>
-        <option value="C. Je veux simplement obtenir des informations pour le moment">C. 🔵 Je veux simplement obtenir des informations pour le moment.</option>
-        <option value="D. Je cherche uniquement une solution gratuite">D. ❌ Je cherche uniquement une solution gratuite.</option>
+      <label for="formule_choisie">11. Quelle option correspond à vos besoins ?</label>
+      <select id="formule_choisie" name="formule_choisie" required>
+        <option value="" disabled selected>Choisissez votre formule</option>
+        <option value="Formation en ligne (49.000 DA)">Je suis intéressé par la formation en ligne de 49.000 DA</option>
+        <option value="Traitement de dossier (200.000 DA)">Je suis intéressé par le traitement de dossier de 200.000 DA</option>
+        <option value="Informations gratuites uniquement">Je veux juste des informations gratuites pour le moment</option>
       </select>
 
       <!-- UTM + SOURCE hidden fields -->
@@ -380,11 +370,10 @@
     function calculateClientScore() {
       let score = 0;
 
-      const decision = document.getElementById("decision").value;
-      if (decision.startsWith("A.")) score += 15;
-      else if (decision.startsWith("B.")) score += 5;
-      else if (decision.startsWith("C.")) score -= 5;
-      else if (decision.startsWith("D.")) score -= 15;
+      const formule = document.getElementById("formule_choisie").value;
+      if (formule.includes("200.000")) score += 25;
+      else if (formule.includes("49.000")) score += 15;
+      else if (formule.includes("gratuites")) score -= 20;
 
       const budget = document.getElementById("budget").value;
       if (budget.includes("2.000.000")) score += 30;
@@ -461,10 +450,9 @@
       errorBox.style.display = "none";
 
       const clientScore = calculateClientScore();
-      const isEligible = clientScore >= 65; // ✅ Seuil strict 65 points
+      const isEligible = clientScore >= 65; // Seuil strict 65 points
 
       const btn = form.querySelector('button[type="submit"]');
-      const oldBtnText = btn.textContent;
       btn.disabled = true;
       btn.textContent = "Envoi…";
 
@@ -489,13 +477,13 @@
       form.style.display = "none";
       thankYou.style.display = "block";
 
-      // Si le score est inférieur à 65 : aucune redirection WhatsApp
+      // Si non éligible : pas de redirection WhatsApp
       if (!isEligible) {
         redirectText.textContent = "Nous reviendrons vers vous si une opportunité correspondant à votre profil se présente.";
         return;
       }
 
-      // Si éligible (Score >= 65) : Lead Facebook Pixel + Redirection WhatsApp
+      // Si éligible : Lead Pixel + Redirection WhatsApp
       if (typeof fbq === 'function') fbq('track', 'Lead');
 
       setTimeout(() => {
@@ -513,8 +501,7 @@
         const niveauAnglais = document.getElementById("anglais").value;
 
         const budget = document.getElementById("budget").value;
-        const quandPartir = document.getElementById("timing").value;
-        const decisionAchat = document.getElementById("decision").value;
+        const formuleChoisie = document.getElementById("formule_choisie").value;
 
         const traffic_source = document.getElementById("traffic_source").value;
         const utm_source = document.getElementById("utm_source").value;
@@ -536,15 +523,14 @@
 
 🇨🇦 Projet Canada
 - Option visée: ${objectif}
-- Timing: ${quandPartir}
 
 🗣️ Niveau Langues
 - Français: ${niveauFrancais}
 - Anglais: ${niveauAnglais}
 
-💰 Profil Financier & Intention
-- Budget prévu: ${budget}
-- Situation engagement: ${decisionAchat}
+💰 Budget & Formule
+- Budget disponible: ${budget}
+- Option choisie: ${formuleChoisie}
 
 📌 Tracking Source
 - Source: ${traffic_source} | UTM: ${utm_source} / ${utm_medium} / ${utm_campaign}
