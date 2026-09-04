@@ -14,9 +14,9 @@
   <meta charset="UTF-8" />
   <meta name="google-site-verification" content="fQ-axX7wf0YcKVbydNAzqwKjfz9m6w5oTTzrElDhjnQ" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Comprendre le programme d’immigration Canada entry express</title>
+  <title>Accompagnement pour le programme d’immigration Canada entry express</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,7 +37,7 @@
     .container {
       background: rgba(255, 255, 255, 0.88);
       border-radius: 20px;
-      padding: 40px 30px;
+      padding: 36px 30px;
       max-width: 560px;
       width: 92%;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
@@ -53,37 +53,34 @@
 
     .logo {
       display: block;
-      margin: 0 auto 24px auto;
-      width: 240px;
+      margin: 0 auto 16px auto;
+      width: 220px;
       max-width: 90%;
       height: auto;
       transition: transform 0.3s ease;
     }
     .logo:hover { transform: scale(1.05); }
 
+    .video-notice {
+      background: rgba(224, 116, 50, 0.12);
+      border: 1px solid rgba(224, 116, 50, 0.4);
+      color: #b34a05;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 18px 0;
+      direction: rtl;
+      line-height: 1.5;
+    }
+
     .vsl-wrapper {
       width: 100%;
-      margin: 18px 0 24px 0;
+      margin: 0 0 24px 0;
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-    }
-
-    h1 {
-      font-family: 'Alfa Slab One', cursive;
-      color: #1e70c7;
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 22px;
-      line-height: 1.35;
-    }
-
-    .subtitle {
-      text-align: center;
-      margin-bottom: 18px;
-      color: #444;
-      font-size: 14px;
-      line-height: 1.6;
     }
 
     .section-title {
@@ -188,9 +185,9 @@
     }
 
     @media (max-width: 600px) {
-      .container { padding: 26px 18px; }
-      h1 { font-size: 19px; }
-      .logo { width: 170px; }
+      .container { padding: 24px 16px; }
+      .logo { width: 165px; margin-bottom: 12px; }
+      .video-notice { font-size: 13.5px; padding: 10px 12px; margin-bottom: 14px; }
     }
   </style>
 
@@ -215,9 +212,12 @@
   <div class="container">
     <img src="les concepteur.png" alt="Logo" class="logo">
 
-    <h1>Comprendre le programme d’immigration Canada entry express</h1>
+    <!-- NOTIFICATION VIDÉO (REMPLACE LE TITRE) -->
+    <div class="video-notice">
+      🎬 شاهد الفيديو حتى النهاية لتفهم خطوات الهجرة لكندا 🇨🇦
+    </div>
 
-    <!-- NOUVELLE VSL VIDALYTICS -->
+    <!-- SECTION VSL VIDALYTICS -->
     <div class="vsl-wrapper">
       <div id="vidalytics_embed_c6xUL9Acepwl6zfS" style="width: 100%; position:relative; padding-top: 56.25%;"></div>
       <script type="text/javascript">
@@ -232,7 +232,7 @@
       })(window, document, 'Vidalytics', 'vidalytics_embed_c6xUL9Acepwl6zfS', 'https://fast.vidalytics.com/embeds/m8MN6UNc/c6xUL9Acepwl6zfS/');
       </script>
     </div>
-    <!-- FIN VSL VIDALYTICS -->
+    <!-- FIN SECTION VSL -->
 
     <div class="error" id="errorBox"></div>
 
@@ -391,7 +391,6 @@
       else if (niveau.includes("Baccalauréat")) score += 5;
       else score += 2;
 
-      // Score calculé à partir de l'âge exact
       const ageVal = parseInt(document.getElementById("age").value, 10) || 0;
       if (ageVal >= 22 && ageVal <= 35) score += 12;
       else if (ageVal >= 36 && ageVal <= 45) score += 7;
@@ -467,13 +466,11 @@
       form.style.display = "none";
       thankYou.style.display = "block";
 
-      // Si non éligible : pas de redirection WhatsApp
       if (!isEligible) {
         redirectText.textContent = "Nous reviendrons vers vous si une opportunité correspondant à votre profil se présente.";
         return;
       }
 
-      // Si éligible : Lead Pixel + Redirection WhatsApp
       if (typeof fbq === 'function') fbq('track', 'Lead');
 
       setTimeout(() => {
