@@ -77,10 +77,24 @@
 
     .vsl-wrapper {
       width: 100%;
-      margin: 0 0 24px 0;
+      margin: 0 0 16px 0;
       border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    }
+
+    .form-notice {
+      background: rgba(30, 112, 199, 0.1);
+      border: 1px solid rgba(30, 112, 199, 0.35);
+      color: #1e70c7;
+      padding: 11px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 18px 0;
+      direction: rtl;
+      line-height: 1.5;
     }
 
     .section-title {
@@ -188,6 +202,7 @@
       .container { padding: 24px 16px; }
       .logo { width: 165px; margin-bottom: 12px; }
       .video-notice { font-size: 13.5px; padding: 10px 12px; margin-bottom: 14px; }
+      .form-notice { font-size: 13.5px; padding: 10px 12px; margin-bottom: 14px; }
     }
   </style>
 
@@ -212,7 +227,7 @@
   <div class="container">
     <img src="les concepteur.png" alt="Logo" class="logo">
 
-    <!-- NOTIFICATION VIDÉO (REMPLACE LE TITRE) -->
+    <!-- NOTIFICATION DU HAUT -->
     <div class="video-notice">
       🎬 شاهد الفيديو حتى النهاية لتفهم خطوات الهجرة لكندا 🇨🇦
     </div>
@@ -233,6 +248,11 @@
       </script>
     </div>
     <!-- FIN SECTION VSL -->
+
+    <!-- NOTIFICATION DU BAS (SOUS LA VIDÉO) -->
+    <div class="form-notice">
+      📝 سجل معلوماتك للتواصل معنا 👇
+    </div>
 
     <div class="error" id="errorBox"></div>
 
