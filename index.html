@@ -375,7 +375,7 @@
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
 
-    // Calcul de score côté client pour validation instantanée (Seuil strict : 65)
+    // Calcul de score côté client (Seuil strict : 65)
     function calculateClientScore() {
       let score = 0;
 
@@ -454,12 +454,12 @@
       setVal("fbclid", qs.get("fbclid"));
     })();
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       errorBox.style.display = "none";
 
       const clientScore = calculateClientScore();
-      const isEligible = clientScore >= 65; // Seuil strict 65 points
+      const isEligible = clientScore >= 65;
 
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
@@ -468,20 +468,12 @@
       const formData = new FormData(form);
       formData.set("pays", "Canada Only");
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 6000);
-
-      try {
-        await fetch(scriptURL, {
-          method: "POST",
-          body: formData,
-          signal: controller.signal
-        });
-      } catch (err) {
-        console.warn("Transmission info:", err);
-      } finally {
-        clearTimeout(timeoutId);
-      }
+      // Envoi direct sans timeout bloquant
+      fetch(scriptURL, {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+      }).catch(err => console.warn("Notice transmission:", err));
 
       form.style.display = "none";
       thankYou.style.display = "block";
@@ -493,6 +485,7 @@
 
       if (typeof fbq === 'function') fbq('track', 'Lead');
 
+      // 2.5 secondes pour laisser le temps d'enregistrement avant la redirection
       setTimeout(() => {
         const nom = document.getElementById("nom").value.trim();
         const whatsapp = document.getElementById("whatsapp").value.trim();
@@ -544,7 +537,7 @@
 `;
 
         window.location.href = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
-      }, 2000);
+      }, 2500);
     });
   </script>
 </body>
