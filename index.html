@@ -335,9 +335,9 @@
       <label for="formule_choisie">11. Quelle option correspond à vos besoins ?</label>
       <select id="formule_choisie" name="formule_choisie" required>
         <option value="" disabled selected>Choisissez votre formule</option>
-        <option value="La formation en ligne">Je suis intéressé par la formation en ligne</option>
-        <option value="Le traitement de dossier">Je suis intéressé par le traitement de dossier</option>
-        <option value="Des informations gratuites uniquement">Je veux juste des informations gratuites pour le moment</option>
+        <option value="Paiement au bureau">Je veux venir payer dans le bureau</option>
+        <option value="Livraison formation à domicile">Je veux que vous m’envoyez la formation avec la société de livraison</option>
+        <option value="Plus d'informations d'abord">Je veux plus d’informations d’abord</option>
       </select>
 
       <!-- UTM + SOURCE hidden fields -->
@@ -380,9 +380,9 @@
       let score = 0;
 
       const formule = document.getElementById("formule_choisie").value;
-      if (formule.includes("traitement")) score += 25;
-      else if (formule.includes("formation")) score += 15;
-      else if (formule.includes("gratuites")) score -= 20;
+      if (formule.includes("bureau")) score += 25; // Engagement ferme d'achat en personne
+      else if (formule.includes("livraison")) score += 20; // Commande avec livraison
+      else if (formule.includes("informations")) score -= 10; // Phase de prospection
 
       const budget = document.getElementById("budget").value;
       if (budget.includes("2.000.000")) score += 30;
@@ -526,7 +526,7 @@
 - Français: ${niveauFrancais}
 - Anglais: ${niveauAnglais}
 
-💰 Budget & Formule
+💰 Budget & Modalité
 - Budget disponible: ${budget}
 - Option choisie: ${formuleChoisie}
 
