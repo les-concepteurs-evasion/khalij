@@ -232,7 +232,7 @@
       🎬 شاهد الفيديو حتى النهاية لتفهم خطوات الهجرة لكندا 🇨🇦
     </div>
 
-    <!-- NOUVELLE VSL VIDALYTICS -->
+    <!-- SECTION VSL VIDALYTICS -->
     <div class="vsl-wrapper">
       <div id="vidalytics_embed_xj9m9tDbVW_oXOP5" style="width: 100%; position:relative; padding-top: 56.25%;"></div>
       <script type="text/javascript">
@@ -247,9 +247,9 @@
       })(window, document, 'Vidalytics', 'vidalytics_embed_xj9m9tDbVW_oXOP5', 'https://fast.vidalytics.com/embeds/m8MN6UNc/xj9m9tDbVW_oXOP5/');
       </script>
     </div>
-    <!-- FIN NOUVELLE VSL VIDALYTICS -->
+    <!-- FIN SECTION VSL -->
 
-    <!-- NOTIFICATION DU BAS (SOUS LA VIDÉO) -->
+    <!-- NOTIFICATION DU BAS -->
     <div class="form-notice">
       📝 سجل معلوماتك للتواصل معنا 👇
     </div>
@@ -319,7 +319,7 @@
         <option value="Très faible / Aucun">Très faible / Aucun</option>
       </select>
 
-      <div class="section-title">💰 Budget & formule souhaitée</div>
+      <div class="section-title">💰 Budget & modalité souhaitée</div>
 
       <label for="budget">10. Quel est le budget total approximatif disponible (Fonds propres ou Garants) ?</label>
       <select id="budget" name="budget" required>
@@ -340,7 +340,7 @@
         <option value="Plus d'informations d'abord">Je veux plus d’informations d’abord</option>
       </select>
 
-      <!-- UTM + SOURCE hidden fields -->
+      <!-- Tracking Fields -->
       <input type="hidden" name="landing_url" id="landing_url">
       <input type="hidden" name="referrer" id="referrer">
       <input type="hidden" name="traffic_source" id="traffic_source">
@@ -375,14 +375,13 @@
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
 
-    // Calcul de score côté client (Seuil strict : 65)
     function calculateClientScore() {
       let score = 0;
 
       const formule = document.getElementById("formule_choisie").value;
-      if (formule.includes("bureau")) score += 25; // Engagement ferme d'achat en personne
-      else if (formule.includes("livraison")) score += 20; // Commande avec livraison
-      else if (formule.includes("informations")) score -= 10; // Phase de prospection
+      if (formule.includes("bureau")) score += 25;
+      else if (formule.includes("livraison")) score += 20;
+      else if (formule.includes("informations")) score -= 10;
 
       const budget = document.getElementById("budget").value;
       if (budget.includes("2.000.000")) score += 30;
@@ -423,7 +422,6 @@
       return score;
     }
 
-    // Auto-capture UTM + source
     (function fillTracking() {
       const qs = new URLSearchParams(window.location.search);
 
@@ -465,14 +463,18 @@
       btn.disabled = true;
       btn.textContent = "Envoi…";
 
-      const formData = new FormData(form);
-      formData.set("pays", "Canada Only");
+      const payload = {};
+      new FormData(form).forEach((value, key) => { payload[key] = value; });
+      payload["pays"] = "Canada Only";
+
+      const blob = new Blob([JSON.stringify(payload)], { type: 'text/plain;charset=UTF-8' });
+      navigator.sendBeacon(scriptURL, blob);
 
       fetch(scriptURL, {
         method: "POST",
-        body: formData,
+        body: JSON.stringify(payload),
         mode: "no-cors"
-      }).catch(err => console.warn("Notice transmission:", err));
+      }).catch(() => {});
 
       form.style.display = "none";
       thankYou.style.display = "block";
@@ -488,19 +490,14 @@
         const nom = document.getElementById("nom").value.trim();
         const whatsapp = document.getElementById("whatsapp").value.trim();
         const age = document.getElementById("age").value.trim();
-
         const niveau = document.getElementById("niveau").value;
         const domaine = document.getElementById("domaine").value.trim();
         const experience = document.getElementById("experience").value;
-
         const objectif = document.getElementById("objectif").value;
-
         const niveauFrancais = document.getElementById("francais").value;
         const niveauAnglais = document.getElementById("anglais").value;
-
         const budget = document.getElementById("budget").value;
         const formuleChoisie = document.getElementById("formule_choisie").value;
-
         const traffic_source = document.getElementById("traffic_source").value;
         const utm_source = document.getElementById("utm_source").value;
         const utm_medium = document.getElementById("utm_medium").value;
