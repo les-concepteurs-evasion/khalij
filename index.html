@@ -1,266 +1,539 @@
-/****************************************************
- * ✅ VERSION CANADA ENTRÉE EXPRESS — SÉCURISÉE & RÉSISTANTE AUX REDIRECTIONS
- * - Écriture immédiate et inconditionnelle de chaque prospect dans "Khalij"
- * - Prise en charge des requêtes beacon JSON et formulaire standard
- * - Exclusion permanente dans "SUIVI" pour les leads "Supprimer" / "Pas intéressé"
- ****************************************************/
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
 
-const SPREADSHEET_ID = '15ZBuyhYgnONNTbCKEjTBZ_0gyiUREP8EKebazBzdIz4';
-const SHEET_NAME = 'Khalij';
-const DASH_SHEET = 'DASHBOARD';
+  <script>
+    if (window.location.hostname === "www.lesconcepteursdevasion.com") {
+      window.location.replace("https://lesconcepteursdevasion.com" + window.location.pathname);
+    }
+  </script>
 
-function doGet() {
-  return ContentService.createTextOutput("Application Canada active ✅").setMimeType(ContentService.MimeType.TEXT);
-}
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="fQ-axX7wf0YcKVbydNAzqwKjfz9m6w5oTTzrElDhjnQ" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accompagnement pour le programme d’immigration Canada entry express</title>
 
-function doPost(e) {
-  try {
-    let data = {};
-    if (e && e.postData && e.postData.contents) {
-      try {
-        data = JSON.parse(e.postData.contents);
-      } catch (err) {
-        data = e.parameter || {};
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, rgba(224,116,50,0.6), rgba(30,112,199,0.6));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 20px;
+      padding: 36px 30px;
+      max-width: 560px;
+      width: 92%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease forwards;
+      backdrop-filter: blur(8px);
+      margin: 16px 0;
+    }
+
+    @keyframes fadeIn {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 16px auto;
+      width: 220px;
+      max-width: 90%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+    .logo:hover { transform: scale(1.05); }
+
+    .video-notice {
+      background: rgba(224, 116, 50, 0.12);
+      border: 1px solid rgba(224, 116, 50, 0.4);
+      color: #b34a05;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 18px 0;
+      direction: rtl;
+      line-height: 1.5;
+    }
+
+    .vsl-wrapper {
+      width: 100%;
+      margin: 0 0 16px 0;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    }
+
+    .form-notice {
+      background: rgba(30, 112, 199, 0.1);
+      border: 1px solid rgba(30, 112, 199, 0.35);
+      color: #1e70c7;
+      padding: 11px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 18px 0;
+      direction: rtl;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #1e70c7;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    form label {
+      font-weight: 500;
+      color: #1e70c7;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      border: 1px solid #1e70c7;
+      border-radius: 12px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.85);
+      color: #333;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+
+    form input:focus, form select:focus, form textarea:focus {
+      border-color: #e07432;
+      box-shadow: 0 6px 15px rgba(224,116,50,0.3);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    #whatsapp { direction: ltr; text-align: left; }
+
+    .hint { font-size: 12px; color: #666; margin-top: -8px; margin-bottom: 12px; }
+
+    .error {
+      display: none;
+      background: rgba(224, 116, 50, 0.12);
+      border: 1px solid rgba(224, 116, 50, 0.35);
+      color: #8a3b10;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      background-color: #1e70c7;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      margin-top: 6px;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.02);
+      background-color: #155a9a;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    button:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .thank-you {
+      display: none;
+      text-align: center;
+      color: #1e70c7;
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 10px;
+      line-height: 1.7;
+    }
+
+    .disclaimer {
+      margin-top: 16px;
+      font-size: 12px;
+      text-align: center;
+      color: #fff;
+      max-width: 560px;
+      line-height: 1.6;
+      padding: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 24px 16px; }
+      .logo { width: 165px; margin-bottom: 12px; }
+      .video-notice { font-size: 13.5px; padding: 10px 12px; margin-bottom: 14px; }
+      .form-notice { font-size: 13.5px; padding: 10px 12px; margin-bottom: 14px; }
+    }
+  </style>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1527570085243076');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1527570085243076&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+
+<body>
+  <div class="container">
+    <img src="les concepteur.png" alt="Logo" class="logo">
+
+    <!-- NOTIFICATION DU HAUT -->
+    <div class="video-notice">
+      🎬 شاهد الفيديو حتى النهاية لتفهم خطوات الهجرة لكندا 🇨🇦
+    </div>
+
+    <!-- SECTION VSL VIDALYTICS -->
+    <div class="vsl-wrapper">
+      <div id="vidalytics_embed_xj9m9tDbVW_oXOP5" style="width: 100%; position:relative; padding-top: 56.25%;"></div>
+      <script type="text/javascript">
+      (function (v, i, d, a, l, y, t, c, s) {
+          y='_'+d.toLowerCase();c=d+'L';if(!v[d]){v[d]={};}if(!v[c]){v[c]={};}if(!v[y]){v[y]={};}var vl='Loader',vli=v[y][vl],vsl=v[c][vl + 'Script'],vlf=v[c][vl + 'Loaded'],ve='Embed';
+          if (!vsl){vsl=function(u,cb){
+              if(t){cb();return;}s=i.createElement("script");s.type="text/javascript";s.async=1;s.src=u;
+              if(s.readyState){s.onreadystatechange=function(){if(s.readyState==="loaded"||s.readyState=="complete"){s.onreadystatechange=null;vlf=1;cb();}};}else{s.onload=function(){vlf=1;cb();};}
+              i.getElementsByTagName("head")[0].appendChild(s);
+          };}
+          vsl(l+'loader.min.js',function(){if(!vli){var vlc=v[c][vl];vli=new vlc();}vli.loadScript(l+'player.min.js',function(){var vec=v[d][ve];t=new vec();t.run(a);});});
+      })(window, document, 'Vidalytics', 'vidalytics_embed_xj9m9tDbVW_oXOP5', 'https://fast.vidalytics.com/embeds/m8MN6UNc/xj9m9tDbVW_oXOP5/');
+      </script>
+    </div>
+    <!-- FIN SECTION VSL -->
+
+    <!-- NOTIFICATION DU BAS -->
+    <div class="form-notice">
+      📝 سجل معلوماتك للتواصل معنا 👇
+    </div>
+
+    <div class="error" id="errorBox"></div>
+
+    <form id="form">
+      <div class="section-title">🧑‍💼 Informations de base</div>
+
+      <label for="nom">1. Nom et prénom (obligatoire)</label>
+      <input type="text" id="nom" name="nom" required>
+
+      <label for="whatsapp">2. Numéro WhatsApp (obligatoire)</label>
+      <input type="tel" id="whatsapp" name="whatsapp" placeholder="+2136xxxxxxxx" required>
+
+      <label for="age">3. Votre âge exact (en années, ex: 29)</label>
+      <input type="number" id="age" name="age" min="18" max="75" placeholder="Ex: 29" required>
+
+      <div class="section-title">🎓 Profil académique & professionnel</div>
+
+      <label for="niveau">4. Niveau d’études le plus élevé</label>
+      <select id="niveau" name="niveau" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Doctorat / Master / Ingénieur">Doctorat / Master / Ingénieur</option>
+        <option value="Licence / TS (Technicien Supérieur)">Licence / TS (Technicien Supérieur)</option>
+        <option value="Baccalauréat / DEUA">Baccalauréat / DEUA</option>
+        <option value="Niveau secondaire ou inférieur">Niveau secondaire ou inférieur</option>
+      </select>
+
+      <label for="domaine">5. Domaine de formation / métier actuel</label>
+      <input type="text" id="domaine" name="domaine" required>
+
+      <label for="experience">6. Années d’expérience professionnelle qualifiée</label>
+      <select id="experience" name="experience" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Moins de 1 an">Moins de 1 an</option>
+        <option value="1 à 2 ans">1 à 2 ans</option>
+        <option value="3 ans ou plus">3 ans ou plus</option>
+      </select>
+
+      <div class="section-title">🇨🇦 Votre Projet Canada</div>
+
+      <label for="objectif">7. Quelle est la voie principale que vous envisagez ?</label>
+      <select id="objectif" name="objectif" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Immigration directe (Travailleur qualifié / Résidence permanente)">Immigration directe (Travailleur qualifié)</option>
+        <option value="Projet d'études (Visa d'études - Requiert un garant ou un budget important)">Projet d'études (Visa d'études)</option>
+        <option value="Immigration des gens d'affaires / Investisseur">Immigration des gens d'affaires / Investisseur</option>
+        <option value="Je ne sais pas encore, je veux l'avis de l'expert selon mon profil">Je ne sais pas encore, je veux l'avis de l'expert</option>
+      </select>
+
+      <div class="section-title">🗣️ Langues (Crucial pour le Canada)</div>
+
+      <label for="francais">8. Niveau de français (Parlé/Écrit)</label>
+      <select id="francais" name="niveau_francais" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Excellent">Excellent / Courant </option>
+        <option value="Intermédiaire">Intermédiaire</option>
+        <option value="Débutant / Faible">Débutant / Faible</option>
+      </select>
+
+      <label for="anglais">9. Niveau d’anglais (Donne un bonus de points massif)</label>
+      <select id="anglais" name="niveau_anglais" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="Avancé / Courant ">Avancé / Courant </option>
+        <option value="Intermédiaire / Base professionnelle">Intermédiaire / Base professionnelle</option>
+        <option value="Très faible / Aucun">Très faible / Aucun</option>
+      </select>
+
+      <div class="section-title">💰 Budget & modalité souhaitée</div>
+
+      <label for="budget">10. Quel est le budget total approximatif disponible (Fonds propres ou Garants) ?</label>
+      <select id="budget" name="budget" required>
+        <option value="" disabled selected>Choisissez</option>
+        <option value="plus de 500.000 DA">plus de 500.000 DA</option>
+        <option value="plus de 1.000.000 DA">plus de 1.000.000 DA</option>
+        <option value="plus de 2.000.000 DA">plus de 2.000.000 DA</option>
+      </select>
+      <div class="hint">*Le Canada exige légalement une preuve de fonds pour s'installer ou étudier.</div>
+
+      <div class="section-title">🚀 VOTRE ENGAGEMENT</div>
+
+      <label for="formule_choisie">11. Quelle option correspond à vos besoins ?</label>
+      <select id="formule_choisie" name="formule_choisie" required>
+        <option value="" disabled selected>Choisissez votre formule</option>
+        <option value="Paiement au bureau">Je veux venir payer dans le bureau</option>
+        <option value="Livraison formation à domicile">Je veux que vous m’envoyez la formation avec la société de livraison</option>
+        <option value="Plus d'informations d'abord">Je veux plus d’informations d’abord</option>
+      </select>
+
+      <!-- Tracking Fields -->
+      <input type="hidden" name="landing_url" id="landing_url">
+      <input type="hidden" name="referrer" id="referrer">
+      <input type="hidden" name="traffic_source" id="traffic_source">
+      <input type="hidden" name="utm_source" id="utm_source">
+      <input type="hidden" name="utm_medium" id="utm_medium">
+      <input type="hidden" name="utm_campaign" id="utm_campaign">
+      <input type="hidden" name="utm_content" id="utm_content">
+      <input type="hidden" name="utm_term" id="utm_term">
+      <input type="hidden" name="utm_id" id="utm_id">
+      <input type="hidden" name="fbclid" id="fbclid">
+
+      <button type="submit">Postuler pour l'évaluation Canada</button>
+    </form>
+
+    <div class="thank-you" id="thankYou">
+      ✅ Merci ! Votre dossier Canada a bien été enregistré.<br>
+      Notre équipe analyse actuellement vos critères d'éligibilité.<br>
+      <span id="redirectText">Redirection WhatsApp en cours…</span>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    Nous ne sommes pas affiliés au gouvernement canadien ni à aucune ambassade. 
+    Nous proposons uniquement des consultations d'évaluation de profil et de l'accompagnement stratégique légal.
+  </p>
+
+  <script>
+    const form = document.getElementById('form');
+    const thankYou = document.getElementById('thankYou');
+    const redirectText = document.getElementById('redirectText');
+    const errorBox = document.getElementById('errorBox');
+
+    const scriptURL = "https://script.google.com/macros/s/AKfycbyd72sz69-OkpJfB3fdKua_tvw38LvbvM5-bnK2TMzfDSV8YHXhff_jxrf6TN7RRIyF/exec";
+
+    function calculateClientScore() {
+      let score = 0;
+
+      const formule = document.getElementById("formule_choisie").value;
+      if (formule.includes("bureau")) score += 25;
+      else if (formule.includes("livraison")) score += 20;
+      else if (formule.includes("informations")) score -= 10;
+
+      const budget = document.getElementById("budget").value;
+      if (budget.includes("2.000.000")) score += 30;
+      else if (budget.includes("1.000.000")) score += 20;
+      else if (budget.includes("500.000")) score += 10;
+      else score += 5;
+
+      const fr = document.getElementById("francais").value;
+      if (fr === "Excellent") score += 15;
+      else if (fr === "Intermédiaire") score += 8;
+      else score += 2;
+
+      const en = document.getElementById("anglais").value;
+      if (en === "Avancé / Courant") score += 15;
+      else if (en === "Intermédiaire / Base professionnelle") score += 8;
+      else score += 2;
+
+      const exp = document.getElementById("experience").value;
+      if (exp.includes("3 ans ou plus")) score += 15;
+      else if (exp.includes("1 à 2 ans")) score += 10;
+      else score += 3;
+
+      const niveau = document.getElementById("niveau").value;
+      if (niveau.includes("Doctorat / Master")) score += 12;
+      else if (niveau.includes("Licence / TS")) score += 8;
+      else if (niveau.includes("Baccalauréat")) score += 5;
+      else score += 2;
+
+      const ageVal = parseInt(document.getElementById("age").value, 10) || 0;
+      if (ageVal >= 22 && ageVal <= 35) score += 12;
+      else if (ageVal >= 36 && ageVal <= 45) score += 7;
+      else if (ageVal > 0 && ageVal < 22) score += 5;
+      else if (ageVal > 45) score += 2;
+
+      const objectif = document.getElementById("objectif").value;
+      if (objectif.includes("Je ne sais pas encore")) score -= 2;
+
+      return score;
+    }
+
+    (function fillTracking() {
+      const qs = new URLSearchParams(window.location.search);
+
+      const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val || "";
+      };
+
+      setVal("landing_url", window.location.href);
+      setVal("referrer", document.referrer || "");
+
+      let source = "direct";
+      if (document.referrer) source = "referral";
+      if (qs.get("fbclid")) source = "facebook";
+
+      const us = (qs.get("utm_source") || "").toLowerCase();
+      if (us.includes("google")) source = "google";
+      if (us.includes("tiktok")) source = "tiktok";
+      if (us.includes("instagram")) source = "instagram";
+
+      setVal("traffic_source", source);
+      setVal("utm_source", qs.get("utm_source"));
+      setVal("utm_medium", qs.get("utm_medium"));
+      setVal("utm_campaign", qs.get("utm_campaign"));
+      setVal("utm_content", qs.get("utm_content"));
+      setVal("utm_term", qs.get("utm_term"));
+      setVal("utm_id", qs.get("utm_id"));
+      setVal("fbclid", qs.get("fbclid"));
+    })();
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errorBox.style.display = "none";
+
+      const clientScore = calculateClientScore();
+      const isEligible = clientScore >= 65;
+
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = "Envoi…";
+
+      const payload = {};
+      new FormData(form).forEach((value, key) => { payload[key] = value; });
+      payload["pays"] = "Canada Only";
+
+      const blob = new Blob([JSON.stringify(payload)], { type: 'text/plain;charset=UTF-8' });
+      navigator.sendBeacon(scriptURL, blob);
+
+      fetch(scriptURL, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        mode: "no-cors"
+      }).catch(() => {});
+
+      form.style.display = "none";
+      thankYou.style.display = "block";
+
+      if (!isEligible) {
+        redirectText.textContent = "Nous reviendrons vers vous si une opportunité correspondant à votre profil se présente.";
+        return;
       }
-    } else if (e && e.parameter) {
-      data = e.parameter;
-    }
 
-    const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    const sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) throw new Error("Onglet introuvable: " + SHEET_NAME);
+      if (typeof fbq === 'function') fbq('track', 'Lead');
 
-    const safe = (v) => String(v || "").trim();
+      setTimeout(() => {
+        const nom = document.getElementById("nom").value.trim();
+        const whatsapp = document.getElementById("whatsapp").value.trim();
+        const age = document.getElementById("age").value.trim();
+        const niveau = document.getElementById("niveau").value;
+        const domaine = document.getElementById("domaine").value.trim();
+        const experience = document.getElementById("experience").value;
+        const objectif = document.getElementById("objectif").value;
+        const niveauFrancais = document.getElementById("francais").value;
+        const niveauAnglais = document.getElementById("anglais").value;
+        const budget = document.getElementById("budget").value;
+        const formuleChoisie = document.getElementById("formule_choisie").value;
+        const traffic_source = document.getElementById("traffic_source").value;
+        const utm_source = document.getElementById("utm_source").value;
+        const utm_medium = document.getElementById("utm_medium").value;
+        const utm_campaign = document.getElementById("utm_campaign").value;
 
-    const ageNum = parseInt(safe(data.age).replace(/\D/g, ""), 10) || 0;
-    const fr = safe(data.niveau_francais);
-    const en = safe(data.niveau_anglais);
-    const exp = safe(data.experience);
-    const niveau = safe(data.niveau);
-    const budget = safe(data.budget);
-    const formule = safe(data.formule_choisie);
-    const objectif = safe(data.objectif);
+        const msg =
+`✅ Nouvelle demande — ENTRÉE EXPRESS CANADA
 
-    let score = 0;
-    if (formule.includes("bureau")) score += 25;
-    else if (formule.includes("livraison")) score += 20;
-    else if (formule.includes("informations")) score -= 10;
+👤 Identité
+- Nom: ${nom}
+- WhatsApp: ${whatsapp}
+- Âge: ${age} ans
 
-    if (budget.includes("2.000.000")) score += 30;
-    else if (budget.includes("1.000.000")) score += 20;
-    else if (budget.includes("500.000")) score += 10;
-    else score += 5;
+🎓 Profil Académique
+- Niveau d'études: ${niveau}
+- Domaine/Métier: ${domaine}
+- Expérience: ${experience}
 
-    if (fr === "Excellent") score += 15;
-    else if (fr === "Intermédiaire") score += 8;
-    else score += 2;
+🇨🇦 Projet Canada
+- Option visée: ${objectif}
 
-    if (en === "Avancé / Courant") score += 15;
-    else if (en === "Intermédiaire / Base professionnelle") score += 8;
-    else score += 2;
+🗣️ Niveau Langues
+- Français: ${niveauFrancais}
+- Anglais: ${niveauAnglais}
 
-    if (exp.includes("3 ans ou plus")) score += 15;
-    else if (exp.includes("1 à 2 ans")) score += 10;
-    else score += 3;
+💰 Budget & Modalité
+- Budget disponible: ${budget}
+- Option choisie: ${formuleChoisie}
 
-    if (niveau.includes("Doctorat / Master")) score += 12;
-    else if (niveau.includes("Licence / TS")) score += 8;
-    else if (niveau.includes("Baccalauréat")) score += 5;
-    else score += 2;
+📌 Tracking Source
+- Source: ${traffic_source} | UTM: ${utm_source} / ${utm_medium} / ${utm_campaign}
+`;
 
-    if (ageNum >= 22 && ageNum <= 35) score += 12;
-    else if (ageNum >= 36 && ageNum <= 45) score += 7;
-    else if (ageNum > 0 && ageNum < 22) score += 5;
-    else if (ageNum > 45) score += 2;
-
-    if (objectif.includes("Je ne sais pas encore")) score -= 2;
-
-    const statut = (score >= 75) ? "PRIORITÉ" : (score >= 65 ? "STANDARD" : "NON QUALIFIÉ");
-    const tz = Session.getScriptTimeZone() || "GMT";
-    const dateStr = Utilities.formatDate(new Date(), tz, "dd/MM/yyyy HH:mm:ss");
-
-    const waRaw = safe(data.whatsapp).replace(/\D/g, "");
-    const waNumber = waRaw ? (waRaw.startsWith("213") ? waRaw : ("213" + waRaw.replace(/^0+/, ""))) : "";
-    const waLink = waNumber ? `https://wa.me/${waNumber}` : "";
-
-    const headers = [
-      "La date", "score", "statut", "nom", "whatsapp", "age", "niveau", "domaine",
-      "experience", "objectif", "niveau_francais", "niveau_anglais", "budget",
-      "formule_choisie", "wa_link", "traffic_source", "utm_source", "utm_medium", "utm_campaign"
-    ];
-
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(headers);
-    }
-
-    sheet.appendRow([
-      dateStr,
-      score,
-      statut,
-      safe(data.nom),
-      safe(data.whatsapp),
-      ageNum,
-      niveau,
-      safe(data.domaine),
-      exp,
-      objectif,
-      fr,
-      en,
-      budget,
-      formule,
-      waLink,
-      safe(data.traffic_source),
-      safe(data.utm_source),
-      safe(data.utm_medium),
-      safe(data.utm_campaign)
-    ]);
-
-    return ContentService.createTextOutput(JSON.stringify({ status: "ok", score: score }))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.message }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-/**************************************************************
- * GESTION DU SUIVI COMMERCIAL (EXCLUSION DÉFINITIVE RESPECTÉE)
- **************************************************************/
-function updateCRMPro() {
-  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const khalij = ss.getSheetByName(SHEET_NAME);
-  if (!khalij) return;
-
-  let suivi = ss.getSheetByName("SUIVI");
-  if (!suivi) suivi = ss.insertSheet("SUIVI");
-
-  const kData = khalij.getDataRange().getValues();
-  if (kData.length < 2) return;
-
-  const sData = suivi.getDataRange().getValues();
-  const statusMap = new Map();
-
-  if (sData.length > 1) {
-    for (let i = 1; i < sData.length; i++) {
-      const tel = String(sData[i][2] || "").trim();
-      if (tel) {
-        statusMap.set(tel, {
-          etat: sData[i][5] || "À appeler",
-          action: sData[i][6] || "",
-          rappel: sData[i][7] || "",
-          notes: sData[i][8] || ""
-        });
-      }
-    }
-  }
-
-  const kHeaders = kData[0].map(h => String(h || "").trim());
-  const idxDate = kHeaders.indexOf("La date");
-  const idxScore = kHeaders.indexOf("score");
-  const idxNom = kHeaders.indexOf("nom");
-  const idxWA = kHeaders.indexOf("whatsapp");
-  const idxFormule = kHeaders.indexOf("formule_choisie");
-  const idxLink = kHeaders.indexOf("wa_link");
-
-  const rowsToAdd = [];
-  const seenInBatch = new Set();
-
-  for (let i = 1; i < kData.length; i++) {
-    const row = kData[i];
-    const score = Number(row[idxScore] || 0);
-    const tel = String(row[idxWA] || "").trim();
-
-    if (score < 65 || !tel || seenInBatch.has(tel)) continue;
-    seenInBatch.add(tel);
-
-    const saved = statusMap.get(tel);
-    const etat = saved ? saved.etat : "À appeler";
-
-    if (etat === "Supprimer" || etat === "Pas intéressé" || etat === "Refusé / Non éligible") {
-      continue;
-    }
-
-    const rawLink = idxLink >= 0 ? String(row[idxLink] || "").trim() : "";
-    const linkFormula = rawLink ? `=HYPERLINK("${rawLink}"; "Ouvrir WhatsApp")` : "";
-
-    rowsToAdd.push([
-      idxDate >= 0 ? row[idxDate] : "",
-      idxNom >= 0 ? row[idxNom] : "",
-      tel,
-      score,
-      idxFormule >= 0 ? row[idxFormule] : "",
-      etat,
-      saved ? saved.action : "",
-      saved ? saved.rappel : "",
-      saved ? saved.notes : "",
-      linkFormula
-    ]);
-  }
-
-  suivi.clearContents();
-  const headers = ["Date", "Nom", "WhatsApp", "Score", "Modalité Souhaitée", "État", "Prochaine Action", "Date Rappel", "Notes", "Lien WhatsApp"];
-  suivi.appendRow(headers);
-  suivi.getRange(1, 1, 1, headers.length).setFontWeight("bold");
-
-  if (rowsToAdd.length > 0) {
-    suivi.getRange(2, 1, rowsToAdd.length, headers.length).setValues(rowsToAdd);
-
-    const etats = ["À appeler", "Appelé", "À rappeler", "Intéressé", "Payé", "Dossier en cours", "Terminé", "Pas intéressé", "Refusé / Non éligible", "Supprimer"];
-    const ruleEtat = SpreadsheetApp.newDataValidation().requireValueInList(etats, true).setAllowInvalid(true).build();
-    suivi.getRange(2, 6, rowsToAdd.length, 1).setDataValidation(ruleEtat);
-  }
-
-  suivi.autoResizeColumns(1, headers.length);
-}
-
-/**************************************************************
- * DÉTECTION EN DIRECT DU STATUT "SUPPRIMER" DANS "SUIVI"
- **************************************************************/
-function onEdit(e) {
-  if (!e) return;
-  const range = e.range;
-  const sheet = range.getSheet();
-  if (sheet.getName() !== "SUIVI") return;
-
-  const row = range.getRow();
-  const col = range.getColumn();
-  if (row < 2 || col !== 6) return;
-
-  const val = String(range.getValue() || "").trim();
-  if (val !== "Supprimer") return;
-
-  const ss = e.source || SpreadsheetApp.getActiveSpreadsheet();
-  const tel = String(sheet.getRange(row, 3).getValue() || "").trim();
-
-  const khalij = ss.getSheetByName(SHEET_NAME);
-  if (khalij && tel) {
-    const kData = khalij.getDataRange().getValues();
-    for (let i = kData.length - 1; i >= 1; i--) {
-      if (String(kData[i][4] || "").trim() === tel) {
-        khalij.deleteRow(i + 1);
-      }
-    }
-  }
-
-  sheet.deleteRow(row);
-}
-
-/***********************
- * AUTOMATISATION HORAIRE
- ***********************/
-function installerTriggersCRMPro() {
-  const triggers = ScriptApp.getProjectTriggers();
-  triggers.forEach(t => {
-    if (t.getHandlerFunction() === "updateCRMPro") {
-      ScriptApp.deleteTrigger(t);
-    }
-  });
-
-  ScriptApp.newTrigger("updateCRMPro").timeBased().everyHours(1).create();
-}
-
-function setupInitial() {
-  updateCRMPro();
-  installerTriggersCRMPro();
-}
+        window.location.href = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
+      }, 2500);
+    });
+  </script>
+</body>
+</html>
