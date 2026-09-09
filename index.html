@@ -461,78 +461,68 @@
 
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
-      btn.textContent = "Envoi…";
+      btn.textContent = "Envoi en cours…";
 
       const payload = {};
-      new FormData(form).forEach((value, key) => { payload[key] = value; });
+      new FormData(form).forEach((value, key) => { 
+        payload[key] = typeof value === 'string' ? value.trim() : value; 
+      });
       payload["pays"] = "Canada Only";
 
-      const blob = new Blob([JSON.stringify(payload)], { type: 'text/plain;charset=UTF-8' });
-      navigator.sendBeacon(scriptURL, blob);
-
+      // Envoi unique via fetch
       fetch(scriptURL, {
         method: "POST",
         body: JSON.stringify(payload),
         mode: "no-cors"
-      }).catch(() => {});
+      })
+      .then(() => {
+        form.style.display = "none";
+        thankYou.style.display = "block";
 
-      form.style.display = "none";
-      thankYou.style.display = "block";
+        if (!isEligible) {
+          redirectText.textContent = "Nous reviendrons vers vous si une opportunité correspondant à votre profil se présente.";
+          return;
+        }
 
-      if (!isEligible) {
-        redirectText.textContent = "Nous reviendrons vers vous si une opportunité correspondant à votre profil se présente.";
-        return;
-      }
+        if (typeof fbq === 'function') fbq('track', 'Lead');
 
-      if (typeof fbq === 'function') fbq('track', 'Lead');
-
-      setTimeout(() => {
-        const nom = document.getElementById("nom").value.trim();
-        const whatsapp = document.getElementById("whatsapp").value.trim();
-        const age = document.getElementById("age").value.trim();
-        const niveau = document.getElementById("niveau").value;
-        const domaine = document.getElementById("domaine").value.trim();
-        const experience = document.getElementById("experience").value;
-        const objectif = document.getElementById("objectif").value;
-        const niveauFrancais = document.getElementById("francais").value;
-        const niveauAnglais = document.getElementById("anglais").value;
-        const budget = document.getElementById("budget").value;
-        const formuleChoisie = document.getElementById("formule_choisie").value;
-        const traffic_source = document.getElementById("traffic_source").value;
-        const utm_source = document.getElementById("utm_source").value;
-        const utm_medium = document.getElementById("utm_medium").value;
-        const utm_campaign = document.getElementById("utm_campaign").value;
-
-        const msg =
+        setTimeout(() => {
+          const msg =
 `✅ Nouvelle demande — ENTRÉE EXPRESS CANADA
 
 👤 Identité
-- Nom: ${nom}
-- WhatsApp: ${whatsapp}
-- Âge: ${age} ans
+- Nom: ${payload.nom}
+- WhatsApp: ${payload.whatsapp}
+- Âge: ${payload.age} ans
 
 🎓 Profil Académique
-- Niveau d'études: ${niveau}
-- Domaine/Métier: ${domaine}
-- Expérience: ${experience}
+- Niveau d'études: ${payload.niveau}
+- Domaine/Métier: ${payload.domaine}
+- Expérience: ${payload.experience}
 
 🇨🇦 Projet Canada
-- Option visée: ${objectif}
+- Option visée: ${payload.objectif}
 
 🗣️ Niveau Langues
-- Français: ${niveauFrancais}
-- Anglais: ${niveauAnglais}
+- Français: ${payload.niveau_francais}
+- Anglais: ${payload.niveau_anglais}
 
 💰 Budget & Modalité
-- Budget disponible: ${budget}
-- Option choisie: ${formuleChoisie}
+- Budget disponible: ${payload.budget}
+- Option choisie: ${payload.formule_choisie}
 
 📌 Tracking Source
-- Source: ${traffic_source} | UTM: ${utm_source} / ${utm_medium} / ${utm_campaign}
-`;
+- Source: ${payload.traffic_source} | UTM: ${payload.utm_source} / ${payload.utm_medium} / ${payload.utm_campaign}`;
 
-        window.location.href = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
-      }, 2500);
+          window.location.href = "https://wa.me/213540686563?text=" + encodeURIComponent(msg);
+        }, 2200);
+      })
+      .catch((err) => {
+        btn.disabled = false;
+        btn.textContent = "Postuler pour l'évaluation Canada";
+        errorBox.textContent = "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
+        errorBox.style.display = "block";
+      });
     });
   </script>
 </body>
