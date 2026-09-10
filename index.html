@@ -346,7 +346,7 @@
           <option value="Plus d'informations d'abord">Je veux plus d’informations d’abord</option>
         </select>
 
-        <!-- Champs de tracking -->
+        <!-- Tracking Fields -->
         <input type="hidden" name="landing_url" id="landing_url">
         <input type="hidden" name="referrer" id="referrer">
         <input type="hidden" name="traffic_source" id="traffic_source">
@@ -375,8 +375,6 @@
   </p>
 
   <script>
-    // SEUIL DE DÉCLENCHEMENT : 10m30s = 630 SECONDES
-    const TRIGGER_SECONDS = 630;
     const formSection = document.getElementById('form-section');
 
     function revealForm() {
@@ -385,42 +383,39 @@
         localStorage.setItem('canada_vsl_unlocked', 'true');
         setTimeout(() => {
           formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 150);
+        }, 200);
       }
     }
 
-    // 1. Déjà débloqué lors d'une session antérieure
     if (localStorage.getItem('canada_vsl_unlocked') === 'true') {
       revealForm();
     }
 
-    // 2. Écoute directe des événements du player Vidalytics
-    window._vidalytics = window._vidalytics || [];
-    window._vidalytics.push({
-      player_ready: function(player) {
-        player.on('time_update', function(time) {
-          if (time >= TRIGGER_SECONDS) revealForm();
-        });
-        player.on('timeupdate', function(time) {
-          if (time >= TRIGGER_SECONDS) revealForm();
-        });
-        player.on('video_end', function() { revealForm(); });
-        player.on('ended', function() { revealForm(); });
-      }
+    // 1. ÉCOUTE DIRECTE DES MESSAGES DE L'IFRAME VIDALYTICS (postMessage)
+    window.addEventListener('message', function(event) {
+      if (!event.data) return;
+      try {
+        let msg = event.data;
+        if (typeof msg === 'string') {
+          try { msg = JSON.parse(msg); } catch(e) {}
+        }
+        
+        // Détection de fin ou de temps avancé dans les événements postMessage
+        const str = JSON.stringify(msg);
+        if (str.includes('ended') || str.includes('video_end') || str.includes('finish')) {
+          revealForm();
+        }
+
+        // Extraction de n'importe quel champ de temps >= 630 secondes (10m30s)
+        const cur = msg.currentTime || msg.time || msg.seconds || (msg.data && msg.data.currentTime);
+        if (typeof cur === 'number' && cur >= 630) {
+          revealForm();
+        }
+      } catch (e) {}
     });
 
-    // 3. Boucle de surveillance active (Scrube manuel vers 10:30 ou fin de vidéo)
-    const monitorInterval = setInterval(() => {
-      // Détection sur balise <video> injectée
-      const videoElements = document.querySelectorAll('video');
-      videoElements.forEach((vid) => {
-        if (vid.currentTime >= TRIGGER_SECONDS || vid.ended) {
-          revealForm();
-          clearInterval(monitorInterval);
-        }
-      });
-
-      // Détection sur l'instance globale Vidalytics
+    // 2. ÉCOUTE DE L'OBJET GLOBAL VIDALYTICS
+    const vslTracker = setInterval(() => {
       try {
         if (window.Vidalytics && window.Vidalytics.players) {
           const players = Object.values(window.Vidalytics.players);
@@ -428,18 +423,16 @@
             const cur = typeof p.getCurrentTime === 'function' ? p.getCurrentTime() : p.currentTime;
             const dur = typeof p.getDuration === 'function' ? p.getDuration() : p.duration;
 
-            if (cur >= TRIGGER_SECONDS || (dur > 0 && cur >= dur - 2)) {
+            if (cur >= 630 || (dur > 0 && cur >= dur - 3)) {
               revealForm();
-              clearInterval(monitorInterval);
+              clearInterval(vslTracker);
             }
           });
         }
       } catch (err) {}
-    }, 250);
+    }, 300);
 
-    // 4. Filet de sécurité temporel (10m30s horloge réelle)
-    setTimeout(revealForm, TRIGGER_SECONDS * 1000);
-
+    // Form submission & scoring
     const form = document.getElementById('form');
     const thankYou = document.getElementById('thankYou');
     const redirectText = document.getElementById('redirectText');
