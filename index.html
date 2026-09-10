@@ -83,7 +83,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.12);
     }
 
-    /* Bloc masqué au début */
+    /* Le formulaire est masqué par défaut */
     #form-section {
       display: none;
       animation: fadeIn 0.8s ease forwards;
@@ -255,7 +255,7 @@
     </div>
     <!-- FIN SECTION VSL -->
 
-    <!-- CONTENEUR DU FORMULAIRE (DÉVOILÉ À 10 MINUTES) -->
+    <!-- CONTENEUR DU FORMULAIRE (APPARAÎT À LA FIN OU À 10 MIN) -->
     <div id="form-section">
       <div class="form-notice">
         📝 سجل معلوماتك للتواصل معنا 👇
@@ -347,7 +347,7 @@
           <option value="Plus d'informations d'abord">Je veux plus d’informations d’abord</option>
         </select>
 
-        <!-- Tracking Fields -->
+        <!-- Champs de tracking -->
         <input type="hidden" name="landing_url" id="landing_url">
         <input type="hidden" name="referrer" id="referrer">
         <input type="hidden" name="traffic_source" id="traffic_source">
@@ -376,24 +376,61 @@
   </p>
 
   <script>
-    // GESTION DU DÉCLENCHEMENT DIFFÉRÉ À 10 MINUTES (600 SECONDES)
-    const DELAY_SECONDS = 10 * 60; // 600 secondes
     const formSection = document.getElementById('form-section');
 
     function revealForm() {
-      if (formSection) {
+      if (formSection && formSection.style.display !== 'block') {
         formSection.style.display = 'block';
+        localStorage.setItem('canada_vsl_unlocked', 'true');
+        formSection.scrollIntoView({ behavior: 'smooth' });
       }
     }
 
+    // 1. Déjà débloqué lors d'une session précédente
     if (localStorage.getItem('canada_vsl_unlocked') === 'true') {
       revealForm();
-    } else {
-      setTimeout(() => {
-        revealForm();
-        localStorage.setItem('canada_vsl_unlocked', 'true');
-      }, DELAY_SECONDS * 1000);
     }
+
+    // 2. Détection par l'API Vidalytics (fin de vidéo ou 10 minutes de lecture)
+    window._vidalytics = window._vidalytics || [];
+    window._vidalytics.push({
+      event: 'player_ready',
+      callback: function (player) {
+        player.on('ended', function () {
+          revealForm();
+        });
+
+        player.on('timeupdate', function (currentTime) {
+          if (currentTime >= 600) {
+            revealForm();
+          }
+        });
+      }
+    });
+
+    // 3. Détection de sécurité si le lecteur charge en iframe/balise HTML5 standard
+    const pollInterval = setInterval(() => {
+      const vid = document.querySelector('.vsl-wrapper video');
+      if (vid) {
+        if (vid.ended || vid.currentTime >= 600) {
+          revealForm();
+          clearInterval(pollInterval);
+        }
+        vid.addEventListener('ended', () => {
+          revealForm();
+          clearInterval(pollInterval);
+        });
+        vid.addEventListener('timeupdate', () => {
+          if (vid.currentTime >= 600) {
+            revealForm();
+            clearInterval(pollInterval);
+          }
+        });
+      }
+    }, 1000);
+
+    // 4. Filet de sécurité temporel (10 minutes horloge max)
+    setTimeout(revealForm, 600 * 1000);
 
     const form = document.getElementById('form');
     const thankYou = document.getElementById('thankYou');
