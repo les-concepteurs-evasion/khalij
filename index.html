@@ -1,38 +1,424 @@
-<script>
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <script>
+    if (window.location.hostname === "www.lesconcepteursdevasion.com") {
+      window.location.replace("https://lesconcepteursdevasion.com" + window.location.pathname);
+    }
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="google-site-verification" content="fQ-axX7wf0YcKVbydNAzqwKjfz9m6w5oTTzrElDhjnQ" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accompagnement pour le programme d’immigration Canada entry express</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, rgba(224,116,50,0.6), rgba(30,112,199,0.6));
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 20px;
+      padding: 36px 30px;
+      max-width: 560px;
+      width: 92%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      animation: fadeIn 1s ease forwards;
+      backdrop-filter: blur(8px);
+      margin: 16px 0;
+    }
+
+    @keyframes fadeIn {
+      0% {opacity: 0; transform: translateY(-20px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 16px auto;
+      width: 220px;
+      max-width: 90%;
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+    .logo:hover { transform: scale(1.05); }
+
+    .video-notice {
+      background: rgba(224, 116, 50, 0.12);
+      border: 1px solid rgba(224, 116, 50, 0.4);
+      color: #b34a05;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 18px 0;
+      direction: rtl;
+      line-height: 1.5;
+    }
+
+    .vsl-wrapper {
+      width: 100%;
+      margin: 0 0 16px 0;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    }
+
+    #form-section {
+      display: none;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .form-notice {
+      background: rgba(30, 112, 199, 0.1);
+      border: 1px solid rgba(30, 112, 199, 0.35);
+      color: #1e70c7;
+      padding: 11px 16px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0 0 18px 0;
+      direction: rtl;
+      line-height: 1.5;
+    }
+
+    .section-title {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      color: #1e70c7;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    form label {
+      font-weight: 500;
+      color: #1e70c7;
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      border: 1px solid #1e70c7;
+      border-radius: 12px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.85);
+      color: #333;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+    }
+
+    form input:focus, form select:focus, form textarea:focus {
+      border-color: #e07432;
+      box-shadow: 0 6px 15px rgba(224,116,50,0.3);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    #whatsapp { direction: ltr; text-align: left; }
+
+    .hint { font-size: 12px; color: #666; margin-top: -8px; margin-bottom: 12px; }
+
+    .error {
+      display: none;
+      background: rgba(224, 116, 50, 0.12);
+      border: 1px solid rgba(224, 116, 50, 0.35);
+      color: #8a3b10;
+      padding: 10px 12px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      background-color: #1e70c7;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      margin-top: 6px;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.02);
+      background-color: #155a9a;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    button:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .thank-you {
+      display: none;
+      text-align: center;
+      color: #1e70c7;
+      font-size: 17px;
+      font-weight: 600;
+      margin-top: 10px;
+      line-height: 1.7;
+    }
+
+    .disclaimer {
+      margin-top: 16px;
+      font-size: 12px;
+      text-align: center;
+      color: #fff;
+      max-width: 560px;
+      line-height: 1.6;
+      padding: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 24px 16px; }
+      .logo { width: 165px; margin-bottom: 12px; }
+      .video-notice { font-size: 13.5px; padding: 10px 12px; margin-bottom: 14px; }
+      .form-notice { font-size: 13.5px; padding: 10px 12px; margin-bottom: 14px; }
+    }
+  </style>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1527570085243076');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1527570085243076&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+
+<body>
+  <div class="container">
+    <img src="les concepteur.png" alt="Logo" class="logo">
+
+    <!-- NOTIFICATION DU HAUT -->
+    <div class="video-notice">
+      🎬 شاهد الفيديو حتى النهاية لتفهم خطوات الهجرة لكندا 🇨🇦
+    </div>
+
+    <!-- SECTION VSL VIDALYTICS -->
+    <div class="vsl-wrapper">
+      <div id="vidalytics_embed_xj9m9tDbVW_oXOP5" style="width: 100%; position:relative; padding-top: 56.25%;"></div>
+      <script type="text/javascript">
+      (function (v, i, d, a, l, y, t, c, s) {
+          y='_'+d.toLowerCase();c=d+'L';if(!v[d]){v[d]={};}if(!v[c]){v[c]={};}if(!v[y]){v[y]={};}var vl='Loader',vli=v[y][vl],vsl=v[c][vl + 'Script'],vlf=v[c][vl + 'Loaded'],ve='Embed';
+          if (!vsl){vsl=function(u,cb){
+              if(t){cb();return;}s=i.createElement("script");s.type="text/javascript";s.async=1;s.src=u;
+              if(s.readyState){s.onreadystatechange=function(){if(s.readyState==="loaded"||s.readyState=="complete"){s.onreadystatechange=null;vlf=1;cb();}};}else{s.onload=function(){vlf=1;cb();};}
+              i.getElementsByTagName("head")[0].appendChild(s);
+          };}
+          vsl(l+'loader.min.js',function(){if(!vli){var vlc=v[c][vl];vli=new vlc();}vli.loadScript(l+'player.min.js',function(){var vec=v[d][ve];t=new vec();t.run(a);});});
+      })(window, document, 'Vidalytics', 'vidalytics_embed_xj9m9tDbVW_oXOP5', 'https://fast.vidalytics.com/embeds/m8MN6UNc/xj9m9tDbVW_oXOP5/');
+      </script>
+    </div>
+    <!-- FIN SECTION VSL -->
+
+    <!-- CONTENEUR DU FORMULAIRE (ID: form-section) -->
+    <div id="form-section">
+      <div class="form-notice">
+        📝 سجل معلوماتك للتواصل معنا 👇
+      </div>
+
+      <div class="error" id="errorBox"></div>
+
+      <form id="form">
+        <div class="section-title">🧑‍💼 Informations de base</div>
+
+        <label for="nom">1. Nom et prénom (obligatoire)</label>
+        <input type="text" id="nom" name="nom" required>
+
+        <label for="whatsapp">2. Numéro WhatsApp (obligatoire)</label>
+        <input type="tel" id="whatsapp" name="whatsapp" placeholder="+2136xxxxxxxx" required>
+
+        <label for="age">3. Votre âge exact (en années, ex: 29)</label>
+        <input type="number" id="age" name="age" min="18" max="75" placeholder="Ex: 29" required>
+
+        <div class="section-title">🎓 Profil académique & professionnel</div>
+
+        <label for="niveau">4. Niveau d’études le plus élevé</label>
+        <select id="niveau" name="niveau" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Doctorat / Master / Ingénieur">Doctorat / Master / Ingénieur</option>
+          <option value="Licence / TS (Technicien Supérieur)">Licence / TS (Technicien Supérieur)</option>
+          <option value="Baccalauréat / DEUA">Baccalauréat / DEUA</option>
+          <option value="Niveau secondaire ou inférieur">Niveau secondaire ou inférieur</option>
+        </select>
+
+        <label for="domaine">5. Domaine de formation / métier actuel</label>
+        <input type="text" id="domaine" name="domaine" required>
+
+        <label for="experience">6. Années d’expérience professionnelle qualifiée</label>
+        <select id="experience" name="experience" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Moins de 1 an">Moins de 1 an</option>
+          <option value="1 à 2 ans">1 à 2 ans</option>
+          <option value="3 ans ou plus">3 ans ou plus</option>
+        </select>
+
+        <div class="section-title">🇨🇦 Votre Projet Canada</div>
+
+        <label for="objectif">7. Quelle est la voie principale que vous envisagez ?</label>
+        <select id="objectif" name="objectif" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Immigration directe (Travailleur qualifié / Résidence permanente)">Immigration directe (Travailleur qualifié)</option>
+          <option value="Projet d'études (Visa d'études - Requiert un garant ou un budget important)">Projet d'études (Visa d'études)</option>
+          <option value="Immigration des gens d'affaires / Investisseur">Immigration des gens d'affaires / Investisseur</option>
+          <option value="Je ne sais pas encore, je veux l'avis de l'expert selon mon profil">Je ne sais pas encore, je veux l'avis de l'expert</option>
+        </select>
+
+        <div class="section-title">🗣️ Langues (Crucial pour le Canada)</div>
+
+        <label for="francais">8. Niveau de français (Parlé/Écrit)</label>
+        <select id="francais" name="niveau_francais" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Excellent">Excellent / Courant </option>
+          <option value="Intermédiaire">Intermédiaire</option>
+          <option value="Débutant / Faible">Débutant / Faible</option>
+        </select>
+
+        <label for="anglais">9. Niveau d’anglais (Donne un bonus de points massif)</label>
+        <select id="anglais" name="niveau_anglais" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Avancé / Courant ">Avancé / Courant </option>
+          <option value="Intermédiaire / Base professionnelle">Intermédiaire / Base professionnelle</option>
+          <option value="Très faible / Aucun">Très faible / Aucun</option>
+        </select>
+
+        <div class="section-title">💰 Budget & modalité souhaitée</div>
+
+        <label for="budget">10. Quel est le budget total approximatif disponible (Fonds propres ou Garants) ?</label>
+        <select id="budget" name="budget" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="plus de 500.000 DA">plus de 500.000 DA</option>
+          <option value="plus de 1.000.000 DA">plus de 1.000.000 DA</option>
+          <option value="plus de 2.000.000 DA">plus de 2.000.000 DA</option>
+        </select>
+        <div class="hint">*Le Canada exige légalement une preuve de fonds pour s'installer ou étudier.</div>
+
+        <div class="section-title">🚀 VOTRE ENGAGEMENT</div>
+
+        <label for="formule_choisie">11. Quelle option correspond à vos besoins ?</label>
+        <select id="formule_choisie" name="formule_choisie" required>
+          <option value="" disabled selected>Choisissez votre formule</option>
+          <option value="Paiement au bureau">Je veux venir payer dans le bureau</option>
+          <option value="Livraison formation à domicile">Je veux que vous m’envoyez la formation avec la société de livraison</option>
+          <option value="Plus d'informations d'abord">Je veux plus d’informations d’abord</option>
+        </select>
+
+        <!-- Tracking Fields -->
+        <input type="hidden" name="landing_url" id="landing_url">
+        <input type="hidden" name="referrer" id="referrer">
+        <input type="hidden" name="traffic_source" id="traffic_source">
+        <input type="hidden" name="utm_source" id="utm_source">
+        <input type="hidden" name="utm_medium" id="utm_medium">
+        <input type="hidden" name="utm_campaign" id="utm_campaign">
+        <input type="hidden" name="utm_content" id="utm_content">
+        <input type="hidden" name="utm_term" id="utm_term">
+        <input type="hidden" name="utm_id" id="utm_id">
+        <input type="hidden" name="fbclid" id="fbclid">
+
+        <button type="submit">Postuler pour l'évaluation Canada</button>
+      </form>
+    </div>
+
+    <div class="thank-you" id="thankYou">
+      ✅ Merci ! Votre dossier Canada a bien été enregistré.<br>
+      Notre équipe analyse actuellement vos critères d'éligibilité.<br>
+      <span id="redirectText">Redirection WhatsApp en cours…</span>
+    </div>
+  </div>
+
+  <p class="disclaimer">
+    Nous ne sommes pas affiliés au gouvernement canadien ni à aucune ambassade. 
+    Nous proposons uniquement des consultations d'évaluation de profil et de l'accompagnement stratégique légal.
+  </p>
+
+  <script>
     const formSection = document.getElementById('form-section');
 
     function revealForm() {
-      if (formSection) {
+      if (formSection && formSection.style.display !== 'block') {
         formSection.style.display = 'block';
         localStorage.setItem('canada_vsl_unlocked', 'true');
         setTimeout(() => {
           formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+        }, 120);
       }
     }
 
-    // 1. Reveal immediately if previously unlocked
-    if (localStorage.getItem('canada_vsl_unlocked') === 'true') {
+    // 1. Révélation si le formulaire a déjà été débloqué
+    if (localStorage.getItem('canada_vsl_unlocked') === 'true' || window.location.hash.includes('form-section')) {
       revealForm();
     }
 
-    // 2. Reveal when Vidalytics CTA button is clicked (hash navigation)
+    // 2. Détection du clic sur le bouton CTA Vidalytics (Navigation par hash)
     window.addEventListener('hashchange', () => {
-      if (window.location.hash === '#form-section') {
+      if (window.location.hash.includes('form-section')) {
         revealForm();
       }
     });
 
-    // 3. Fallback: catch clicks from inside or around the video wrapper
+    // 3. Capture des clics vers l'ancre #form-section
     document.addEventListener('click', (e) => {
-      const target = e.target.closest('a');
-      if (target && target.getAttribute('href') && target.getAttribute('href').includes('form-section')) {
-        e.preventDefault();
+      const link = e.target.closest('a');
+      if (link && link.getAttribute('href') && link.getAttribute('href').includes('form-section')) {
         revealForm();
       }
     });
 
-    // 4. Maximum failsafe timer (10m30s clock time)
+    // 4. Écoute directe des messages iframe postMessage
+    window.addEventListener('message', (e) => {
+      if (!e.data) return;
+      try {
+        const d = typeof e.data === 'string' ? e.data : JSON.stringify(e.data);
+        if (d.includes('form-section') || d.includes('video_end') || d.includes('ended')) {
+          revealForm();
+        }
+      } catch (err) {}
+    });
+
+    // 5. Filet de sécurité temporel automatique (10m30s = 630s)
     setTimeout(revealForm, 630 * 1000);
 
     const form = document.getElementById('form');
@@ -191,3 +577,5 @@
       });
     });
   </script>
+</body>
+</html>
