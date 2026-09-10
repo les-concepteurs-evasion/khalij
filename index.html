@@ -83,6 +83,12 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.12);
     }
 
+    /* Bloc masqué au début */
+    #form-section {
+      display: none;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
     .form-notice {
       background: rgba(30, 112, 199, 0.1);
       border: 1px solid rgba(30, 112, 199, 0.35);
@@ -249,111 +255,113 @@
     </div>
     <!-- FIN SECTION VSL -->
 
-    <!-- NOTIFICATION DU BAS -->
-    <div class="form-notice">
-      📝 سجل معلوماتك للتواصل معنا 👇
+    <!-- CONTENEUR DU FORMULAIRE (DÉVOILÉ À 10 MINUTES) -->
+    <div id="form-section">
+      <div class="form-notice">
+        📝 سجل معلوماتك للتواصل معنا 👇
+      </div>
+
+      <div class="error" id="errorBox"></div>
+
+      <form id="form">
+        <div class="section-title">🧑‍💼 Informations de base</div>
+
+        <label for="nom">1. Nom et prénom (obligatoire)</label>
+        <input type="text" id="nom" name="nom" required>
+
+        <label for="whatsapp">2. Numéro WhatsApp (obligatoire)</label>
+        <input type="tel" id="whatsapp" name="whatsapp" placeholder="+2136xxxxxxxx" required>
+
+        <label for="age">3. Votre âge exact (en années, ex: 29)</label>
+        <input type="number" id="age" name="age" min="18" max="75" placeholder="Ex: 29" required>
+
+        <div class="section-title">🎓 Profil académique & professionnel</div>
+
+        <label for="niveau">4. Niveau d’études le plus élevé</label>
+        <select id="niveau" name="niveau" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Doctorat / Master / Ingénieur">Doctorat / Master / Ingénieur</option>
+          <option value="Licence / TS (Technicien Supérieur)">Licence / TS (Technicien Supérieur)</option>
+          <option value="Baccalauréat / DEUA">Baccalauréat / DEUA</option>
+          <option value="Niveau secondaire ou inférieur">Niveau secondaire ou inférieur</option>
+        </select>
+
+        <label for="domaine">5. Domaine de formation / métier actuel</label>
+        <input type="text" id="domaine" name="domaine" required>
+
+        <label for="experience">6. Années d’expérience professionnelle qualifiée</label>
+        <select id="experience" name="experience" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Moins de 1 an">Moins de 1 an</option>
+          <option value="1 à 2 ans">1 à 2 ans</option>
+          <option value="3 ans ou plus">3 ans ou plus</option>
+        </select>
+
+        <div class="section-title">🇨🇦 Votre Projet Canada</div>
+
+        <label for="objectif">7. Quelle est la voie principale que vous envisagez ?</label>
+        <select id="objectif" name="objectif" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Immigration directe (Travailleur qualifié / Résidence permanente)">Immigration directe (Travailleur qualifié)</option>
+          <option value="Projet d'études (Visa d'études - Requiert un garant ou un budget important)">Projet d'études (Visa d'études)</option>
+          <option value="Immigration des gens d'affaires / Investisseur">Immigration des gens d'affaires / Investisseur</option>
+          <option value="Je ne sais pas encore, je veux l'avis de l'expert selon mon profil">Je ne sais pas encore, je veux l'avis de l'expert</option>
+        </select>
+
+        <div class="section-title">🗣️ Langues (Crucial pour le Canada)</div>
+
+        <label for="francais">8. Niveau de français (Parlé/Écrit)</label>
+        <select id="francais" name="niveau_francais" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Excellent">Excellent / Courant </option>
+          <option value="Intermédiaire">Intermédiaire</option>
+          <option value="Débutant / Faible">Débutant / Faible</option>
+        </select>
+
+        <label for="anglais">9. Niveau d’anglais (Donne un bonus de points massif)</label>
+        <select id="anglais" name="niveau_anglais" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="Avancé / Courant ">Avancé / Courant </option>
+          <option value="Intermédiaire / Base professionnelle">Intermédiaire / Base professionnelle</option>
+          <option value="Très faible / Aucun">Très faible / Aucun</option>
+        </select>
+
+        <div class="section-title">💰 Budget & modalité souhaitée</div>
+
+        <label for="budget">10. Quel est le budget total approximatif disponible (Fonds propres ou Garants) ?</label>
+        <select id="budget" name="budget" required>
+          <option value="" disabled selected>Choisissez</option>
+          <option value="plus de 500.000 DA">plus de 500.000 DA</option>
+          <option value="plus de 1.000.000 DA">plus de 1.000.000 DA</option>
+          <option value="plus de 2.000.000 DA">plus de 2.000.000 DA</option>
+        </select>
+        <div class="hint">*Le Canada exige légalement une preuve de fonds pour s'installer ou étudier.</div>
+
+        <div class="section-title">🚀 VOTRE ENGAGEMENT</div>
+
+        <label for="formule_choisie">11. Quelle option correspond à vos besoins ?</label>
+        <select id="formule_choisie" name="formule_choisie" required>
+          <option value="" disabled selected>Choisissez votre formule</option>
+          <option value="Paiement au bureau">Je veux venir payer dans le bureau</option>
+          <option value="Livraison formation à domicile">Je veux que vous m’envoyez la formation avec la société de livraison</option>
+          <option value="Plus d'informations d'abord">Je veux plus d’informations d’abord</option>
+        </select>
+
+        <!-- Tracking Fields -->
+        <input type="hidden" name="landing_url" id="landing_url">
+        <input type="hidden" name="referrer" id="referrer">
+        <input type="hidden" name="traffic_source" id="traffic_source">
+        <input type="hidden" name="utm_source" id="utm_source">
+        <input type="hidden" name="utm_medium" id="utm_medium">
+        <input type="hidden" name="utm_campaign" id="utm_campaign">
+        <input type="hidden" name="utm_content" id="utm_content">
+        <input type="hidden" name="utm_term" id="utm_term">
+        <input type="hidden" name="utm_id" id="utm_id">
+        <input type="hidden" name="fbclid" id="fbclid">
+
+        <button type="submit">Postuler pour l'évaluation Canada</button>
+      </form>
     </div>
-
-    <div class="error" id="errorBox"></div>
-
-    <form id="form">
-      <div class="section-title">🧑‍💼 Informations de base</div>
-
-      <label for="nom">1. Nom et prénom (obligatoire)</label>
-      <input type="text" id="nom" name="nom" required>
-
-      <label for="whatsapp">2. Numéro WhatsApp (obligatoire)</label>
-      <input type="tel" id="whatsapp" name="whatsapp" placeholder="+2136xxxxxxxx" required>
-
-      <label for="age">3. Votre âge exact (en années, ex: 29)</label>
-      <input type="number" id="age" name="age" min="18" max="75" placeholder="Ex: 29" required>
-
-      <div class="section-title">🎓 Profil académique & professionnel</div>
-
-      <label for="niveau">4. Niveau d’études le plus élevé</label>
-      <select id="niveau" name="niveau" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="Doctorat / Master / Ingénieur">Doctorat / Master / Ingénieur</option>
-        <option value="Licence / TS (Technicien Supérieur)">Licence / TS (Technicien Supérieur)</option>
-        <option value="Baccalauréat / DEUA">Baccalauréat / DEUA</option>
-        <option value="Niveau secondaire ou inférieur">Niveau secondaire ou inférieur</option>
-      </select>
-
-      <label for="domaine">5. Domaine de formation / métier actuel</label>
-      <input type="text" id="domaine" name="domaine" required>
-
-      <label for="experience">6. Années d’expérience professionnelle qualifiée</label>
-      <select id="experience" name="experience" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="Moins de 1 an">Moins de 1 an</option>
-        <option value="1 à 2 ans">1 à 2 ans</option>
-        <option value="3 ans ou plus">3 ans ou plus</option>
-      </select>
-
-      <div class="section-title">🇨🇦 Votre Projet Canada</div>
-
-      <label for="objectif">7. Quelle est la voie principale que vous envisagez ?</label>
-      <select id="objectif" name="objectif" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="Immigration directe (Travailleur qualifié / Résidence permanente)">Immigration directe (Travailleur qualifié)</option>
-        <option value="Projet d'études (Visa d'études - Requiert un garant ou un budget important)">Projet d'études (Visa d'études)</option>
-        <option value="Immigration des gens d'affaires / Investisseur">Immigration des gens d'affaires / Investisseur</option>
-        <option value="Je ne sais pas encore, je veux l'avis de l'expert selon mon profil">Je ne sais pas encore, je veux l'avis de l'expert</option>
-      </select>
-
-      <div class="section-title">🗣️ Langues (Crucial pour le Canada)</div>
-
-      <label for="francais">8. Niveau de français (Parlé/Écrit)</label>
-      <select id="francais" name="niveau_francais" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="Excellent">Excellent / Courant </option>
-        <option value="Intermédiaire">Intermédiaire</option>
-        <option value="Débutant / Faible">Débutant / Faible</option>
-      </select>
-
-      <label for="anglais">9. Niveau d’anglais (Donne un bonus de points massif)</label>
-      <select id="anglais" name="niveau_anglais" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="Avancé / Courant ">Avancé / Courant </option>
-        <option value="Intermédiaire / Base professionnelle">Intermédiaire / Base professionnelle</option>
-        <option value="Très faible / Aucun">Très faible / Aucun</option>
-      </select>
-
-      <div class="section-title">💰 Budget & modalité souhaitée</div>
-
-      <label for="budget">10. Quel est le budget total approximatif disponible (Fonds propres ou Garants) ?</label>
-      <select id="budget" name="budget" required>
-        <option value="" disabled selected>Choisissez</option>
-        <option value="plus de 500.000 DA">plus de 500.000 DA</option>
-        <option value="plus de 1.000.000 DA">plus de 1.000.000 DA</option>
-        <option value="plus de 2.000.000 DA">plus de 2.000.000 DA</option>
-      </select>
-      <div class="hint">*Le Canada exige légalement une preuve de fonds pour s'installer ou étudier.</div>
-
-      <div class="section-title">🚀 VOTRE ENGAGEMENT</div>
-
-      <label for="formule_choisie">11. Quelle option correspond à vos besoins ?</label>
-      <select id="formule_choisie" name="formule_choisie" required>
-        <option value="" disabled selected>Choisissez votre formule</option>
-        <option value="Paiement au bureau">Je veux venir payer dans le bureau</option>
-        <option value="Livraison formation à domicile">Je veux que vous m’envoyez la formation avec la société de livraison</option>
-        <option value="Plus d'informations d'abord">Je veux plus d’informations d’abord</option>
-      </select>
-
-      <!-- Tracking Fields -->
-      <input type="hidden" name="landing_url" id="landing_url">
-      <input type="hidden" name="referrer" id="referrer">
-      <input type="hidden" name="traffic_source" id="traffic_source">
-      <input type="hidden" name="utm_source" id="utm_source">
-      <input type="hidden" name="utm_medium" id="utm_medium">
-      <input type="hidden" name="utm_campaign" id="utm_campaign">
-      <input type="hidden" name="utm_content" id="utm_content">
-      <input type="hidden" name="utm_term" id="utm_term">
-      <input type="hidden" name="utm_id" id="utm_id">
-      <input type="hidden" name="fbclid" id="fbclid">
-
-      <button type="submit">Postuler pour l'évaluation Canada</button>
-    </form>
 
     <div class="thank-you" id="thankYou">
       ✅ Merci ! Votre dossier Canada a bien été enregistré.<br>
@@ -368,6 +376,25 @@
   </p>
 
   <script>
+    // GESTION DU DÉCLENCHEMENT DIFFÉRÉ À 10 MINUTES (600 SECONDES)
+    const DELAY_SECONDS = 10 * 60; // 600 secondes
+    const formSection = document.getElementById('form-section');
+
+    function revealForm() {
+      if (formSection) {
+        formSection.style.display = 'block';
+      }
+    }
+
+    if (localStorage.getItem('canada_vsl_unlocked') === 'true') {
+      revealForm();
+    } else {
+      setTimeout(() => {
+        revealForm();
+        localStorage.setItem('canada_vsl_unlocked', 'true');
+      }, DELAY_SECONDS * 1000);
+    }
+
     const form = document.getElementById('form');
     const thankYou = document.getElementById('thankYou');
     const redirectText = document.getElementById('redirectText');
@@ -469,14 +496,13 @@
       });
       payload["pays"] = "Canada Only";
 
-      // Envoi unique via fetch
       fetch(scriptURL, {
         method: "POST",
         body: JSON.stringify(payload),
         mode: "no-cors"
       })
       .then(() => {
-        form.style.display = "none";
+        formSection.style.display = "none";
         thankYou.style.display = "block";
 
         if (!isEligible) {
