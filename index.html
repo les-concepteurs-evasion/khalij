@@ -254,7 +254,7 @@
     </div>
     <!-- FIN SECTION VSL -->
 
-    <!-- CONTENEUR DU FORMULAIRE (RÉVÉLATION AUTOMATIQUE) -->
+    <!-- CONTENEUR DU FORMULAIRE -->
     <div id="form-section">
       <div class="form-notice">
         📝 سجل معلوماتك للتواصل معنا 👇
@@ -375,6 +375,8 @@
   </p>
 
   <script>
+    // SEUIL DE DÉCLENCHEMENT : 10m30s = 630 SECONDES
+    const TRIGGER_SECONDS = 630;
     const formSection = document.getElementById('form-section');
 
     function revealForm() {
@@ -387,42 +389,56 @@
       }
     }
 
+    // 1. Déjà débloqué lors d'une session antérieure
     if (localStorage.getItem('canada_vsl_unlocked') === 'true') {
       revealForm();
     }
 
-    // Capture officielle de tous les événements de fin / progression Vidalytics
+    // 2. Écoute directe des événements du player Vidalytics
     window._vidalytics = window._vidalytics || [];
     window._vidalytics.push({
       player_ready: function(player) {
+        player.on('time_update', function(time) {
+          if (time >= TRIGGER_SECONDS) revealForm();
+        });
+        player.on('timeupdate', function(time) {
+          if (time >= TRIGGER_SECONDS) revealForm();
+        });
         player.on('video_end', function() { revealForm(); });
         player.on('ended', function() { revealForm(); });
-        player.on('time_update', function(time) { if (time >= 600) revealForm(); });
-        player.on('timeupdate', function(time) { if (time >= 600) revealForm(); });
       }
     });
 
-    // Surveillance active de l'instance du lecteur
-    const vslWatchdog = setInterval(() => {
-      try {
-        const vidPlayers = window.Vidalytics?.players;
-        if (vidPlayers) {
-          const p = Object.values(vidPlayers)[0];
-          if (p) {
-            const curTime = typeof p.getCurrentTime === 'function' ? p.getCurrentTime() : p.currentTime;
-            const duration = typeof p.getDuration === 'function' ? p.getDuration() : p.duration;
-
-            if (curTime >= 600 || (duration > 0 && curTime >= duration - 2)) {
-              revealForm();
-              clearInterval(vslWatchdog);
-            }
-          }
+    // 3. Boucle de surveillance active (Scrube manuel vers 10:30 ou fin de vidéo)
+    const monitorInterval = setInterval(() => {
+      // Détection sur balise <video> injectée
+      const videoElements = document.querySelectorAll('video');
+      videoElements.forEach((vid) => {
+        if (vid.currentTime >= TRIGGER_SECONDS || vid.ended) {
+          revealForm();
+          clearInterval(monitorInterval);
         }
-      } catch (e) {}
-    }, 500);
+      });
 
-    // Timeout de sécurité garanti (10 minutes)
-    setTimeout(revealForm, 600 * 1000);
+      // Détection sur l'instance globale Vidalytics
+      try {
+        if (window.Vidalytics && window.Vidalytics.players) {
+          const players = Object.values(window.Vidalytics.players);
+          players.forEach((p) => {
+            const cur = typeof p.getCurrentTime === 'function' ? p.getCurrentTime() : p.currentTime;
+            const dur = typeof p.getDuration === 'function' ? p.getDuration() : p.duration;
+
+            if (cur >= TRIGGER_SECONDS || (dur > 0 && cur >= dur - 2)) {
+              revealForm();
+              clearInterval(monitorInterval);
+            }
+          });
+        }
+      } catch (err) {}
+    }, 250);
+
+    // 4. Filet de sécurité temporel (10m30s horloge réelle)
+    setTimeout(revealForm, TRIGGER_SECONDS * 1000);
 
     const form = document.getElementById('form');
     const thankYou = document.getElementById('thankYou');
