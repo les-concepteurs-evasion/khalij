@@ -49,7 +49,7 @@
       left: 0;
       width: 100%;
       height: 65vh;
-      background: linear-gradient(180deg, rgba(8, 14, 26, 0.4) 0%, rgba(8, 14, 26, 0.95) 100%),
+      background: linear-gradient(180deg, rgba(8, 14, 26, 0.45) 0%, rgba(8, 14, 26, 0.95) 100%),
                   radial-gradient(circle at top, rgba(0, 119, 182, 0.15), transparent 70%),
                   url('https://images.unsplash.com/photo-1517090504586-fde19ea6066f?auto=format&fit=crop&w=1200&q=80') center center / cover no-repeat;
       z-index: 1;
@@ -69,46 +69,21 @@
       justify-content: space-between;
     }
 
+    /* Agency Logo Header */
     .brand-header {
       width: 100%;
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: flex-start;
       padding-top: 10px;
     }
 
-    .brand-logo-svg {
-      width: 46px;
-      height: 46px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      flex-shrink: 0;
-    }
-
-    .brand-title-wrap {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.15;
-    }
-
-    .brand-title-wrap .brand-main {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: #0077b6;
-      text-transform: uppercase;
-    }
-
-    .brand-title-wrap .brand-sub {
-      font-size: 12px;
-      font-weight: 600;
-      color: #f77f00;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+    .agency-logo {
+      height: 48px;
+      width: auto;
+      max-width: 200px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
     }
 
     .hero-title-area {
@@ -201,18 +176,9 @@
 
   <div class="main-container">
     
+    <!-- Agency Logo Header -->
     <header class="brand-header">
-      <div class="brand-logo-svg">
-        <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="46" stroke="#f77f00" stroke-width="4" fill="none"/>
-          <path d="M22 65 C35 55, 65 55, 78 65" stroke="#f77f00" stroke-width="3" fill="none"/>
-          <path d="M20 70 L25 45 L50 48 L75 30 L80 34 L62 55 L75 57 L80 50 L84 52 L80 62 L20 70 Z" fill="#0077b6"/>
-        </svg>
-      </div>
-      <div class="brand-title-wrap">
-        <span class="brand-main">LES CONCEPTEURS</span>
-        <span class="brand-sub">D'ÉVASIONS</span>
-      </div>
+      <img src="les concepteur.png" alt="Les Concepteurs d'Évasions" class="agency-logo">
     </header>
 
     <div class="hero-title-area">
@@ -224,7 +190,7 @@
         En cliquant sur « <em>Réserver ma consultation gratuite</em> », vous accédez au groupe WhatsApp qui vous donne accès à la conférence gratuite.
       </p>
 
-      <!-- Button with Lead Event Tracking -->
+      <!-- Replace with your actual WhatsApp Group Link -->
       <a href="https://chat.whatsapp.com/VOTRE_GROUPE_WHATSAPP" id="whatsapp-btn" class="btn-whatsapp">
         Réserver ma consultation gratuite
       </a>
