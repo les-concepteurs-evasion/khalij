@@ -69,26 +69,26 @@
       justify-content: space-between;
     }
 
-    /* Agency Logo Header */
+    /* Top Center Logo */
     .brand-header {
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      padding-top: 10px;
+      justify-content: center;
+      padding-top: 15px;
     }
 
     .agency-logo {
-      height: 48px;
+      height: 65px;
       width: auto;
-      max-width: 200px;
+      max-width: 220px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5));
     }
 
     .hero-title-area {
       text-align: center;
-      margin: 60px 0 35px 0;
+      margin: 50px 0 35px 0;
       width: 100%;
     }
 
@@ -176,9 +176,11 @@
 
   <div class="main-container">
     
-    <!-- Agency Logo Header -->
+    <!-- Top Centered Logo -->
     <header class="brand-header">
-      <img src="les concepteur.png" alt="Les Concepteurs d'Évasions" class="agency-logo">
+      <img src="https://raw.githubusercontent.com/les-concepteurs-evasion/khalij/main/les%20concepteur.png" 
+           alt="Les Concepteurs d'Évasions" 
+           class="agency-logo">
     </header>
 
     <div class="hero-title-area">
@@ -190,7 +192,7 @@
         En cliquant sur « <em>Réserver ma consultation gratuite</em> », vous accédez au groupe WhatsApp qui vous donne accès à la conférence gratuite.
       </p>
 
-      <!-- Replace with your actual WhatsApp Group Link -->
+      <!-- Replace with your WhatsApp group link -->
       <a href="https://chat.whatsapp.com/VOTRE_GROUPE_WHATSAPP" id="whatsapp-btn" class="btn-whatsapp">
         Réserver ma consultation gratuite
       </a>
@@ -207,7 +209,7 @@
 
   </div>
 
-  <!-- Event Tracking Script -->
+  <!-- Meta Pixel Lead Event Script -->
   <script>
     document.getElementById('whatsapp-btn').addEventListener('click', function() {
       if (typeof fbq !== 'undefined') {
