@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Les Concepteurs d'Évasions | Votre avenir commence ici</title>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1527570085243076');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" 
+         src="https://www.facebook.com/tr?id=1527570085243076&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- End Meta Pixel Code -->
+
   <style>
     * {
       box-sizing: border-box;
@@ -23,7 +43,6 @@
       overflow-x: hidden;
     }
 
-    /* Arrière-plan urbain nocturne similaire */
     .hero-background {
       position: fixed;
       top: 0;
@@ -50,7 +69,6 @@
       justify-content: space-between;
     }
 
-    /* En-tête / Logo */
     .brand-header {
       width: 100%;
       display: flex;
@@ -93,7 +111,6 @@
       text-transform: uppercase;
     }
 
-    /* Titre central */
     .hero-title-area {
       text-align: center;
       margin: 60px 0 35px 0;
@@ -108,7 +125,6 @@
       letter-spacing: -0.5px;
     }
 
-    /* Boîte blanche flottante (CTA Box) */
     .cta-card {
       background: #ffffff;
       color: #1e293b;
@@ -133,7 +149,6 @@
       font-weight: 600;
     }
 
-    /* Bouton Bleu Action Directe */
     .btn-whatsapp {
       display: flex;
       align-items: center;
@@ -149,6 +164,7 @@
       box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
       transition: all 0.2s ease;
       width: 100%;
+      cursor: pointer;
     }
 
     .btn-whatsapp:hover, .btn-whatsapp:active {
@@ -156,7 +172,6 @@
       transform: translateY(-1px);
     }
 
-    /* Footer légal */
     .footer-section {
       width: 100%;
       padding: 25px 15px 35px 15px;
@@ -186,10 +201,8 @@
 
   <div class="main-container">
     
-    <!-- Header Branding -->
     <header class="brand-header">
       <div class="brand-logo-svg">
-        <!-- Logo SVG aux couleurs de votre agence (Bleu & Orange) -->
         <svg width="28" height="28" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="50" cy="50" r="46" stroke="#f77f00" stroke-width="4" fill="none"/>
           <path d="M22 65 C35 55, 65 55, 78 65" stroke="#f77f00" stroke-width="3" fill="none"/>
@@ -202,24 +215,21 @@
       </div>
     </header>
 
-    <!-- Titre Impactant Identique -->
     <div class="hero-title-area">
       <h1>Votre avenir<br>commence ici</h1>
     </div>
 
-    <!-- Carte Flottante WhatsApp -->
     <div class="cta-card">
       <p>
         En cliquant sur « <em>Réserver ma consultation gratuite</em> », vous accédez au groupe WhatsApp qui vous donne accès à la conférence gratuite.
       </p>
 
-      <!-- METTEZ VOTRE VRAI LIEN DE GROUPE WHATSAPP CI-DESSOUS -->
-      <a href="https://chat.whatsapp.com/LdmT8JuwCVcCQwyHPfx6M5?mode=gi_t">
+      <!-- Button with Lead Event Tracking -->
+      <a href="https://chat.whatsapp.com/VOTRE_GROUPE_WHATSAPP" id="whatsapp-btn" class="btn-whatsapp">
         Réserver ma consultation gratuite
       </a>
     </div>
 
-    <!-- Mentions légales & Footer -->
     <footer class="footer-section">
       <div class="copyright">
         &copy; 2026 Les Concepteurs d'Évasions – Tous droits réservés.
@@ -230,6 +240,15 @@
     </footer>
 
   </div>
+
+  <!-- Event Tracking Script -->
+  <script>
+    document.getElementById('whatsapp-btn').addEventListener('click', function() {
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead');
+      }
+    });
+  </script>
 
 </body>
 </html>
