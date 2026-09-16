@@ -69,7 +69,7 @@
       justify-content: space-between;
     }
 
-    /* Top Centered Logo (30% smaller) */
+    /* Top Centered Logo (Balanced proportions) */
     .brand-header {
       width: 100%;
       display: flex;
@@ -176,7 +176,7 @@
 
   <div class="main-container">
     
-    <!-- Top Center Logo (Balanced proportions) -->
+    <!-- Top Center Logo -->
     <header class="brand-header">
       <img src="https://raw.githubusercontent.com/les-concepteurs-evasion/khalij/main/les%20concepteur.png" 
            alt="Les Concepteurs d'Évasions" 
@@ -192,7 +192,7 @@
         En cliquant sur « <em>Réserver ma consultation gratuite</em> », vous accédez au groupe WhatsApp qui vous donne accès à la conférence gratuite.
       </p>
 
-      <a href="https://chat.whatsapp.com/VOTRE_GROUPE_WHATSAPP" id="whatsapp-btn" class="btn-whatsapp">
+      <a href="https://chat.whatsapp.com/HRzHSkkN3HuHcUXbFtObOO" id="whatsapp-btn" class="btn-whatsapp">
         Réserver ma consultation gratuite
       </a>
     </div>
@@ -208,11 +208,22 @@
 
   </div>
 
-  <!-- Meta Pixel Lead Event Script -->
+  <!-- Meta Pixel Lead Event Script + Mobile Deep Linking Bridge -->
   <script>
-    document.getElementById('whatsapp-btn').addEventListener('click', function() {
+    document.getElementById('whatsapp-btn').addEventListener('click', function(e) {
       if (typeof fbq !== 'undefined') {
         fbq('track', 'Lead');
+      }
+
+      const groupCode = "HRzHSkkN3HuHcUXbFtObOO";
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        e.preventDefault();
+        window.location.href = "whatsapp://chat?code=" + groupCode;
+        setTimeout(function() {
+          window.location.href = "https://chat.whatsapp.com/" + groupCode;
+        }, 400);
       }
     });
   </script>
