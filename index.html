@@ -172,7 +172,6 @@
 </head>
 <body>
 
-  <!-- Background decorative hero layer -->
   <div class="hero-background"></div>
 
   <div class="main-container">
@@ -181,21 +180,19 @@
     <header class="brand-header">
       <img src="https://raw.githubusercontent.com/les-concepteurs-evasion/khalij/main/les%20concepteur.png" 
            alt="Les Concepteurs d'Évasions" 
-           class="agency-logo"
-           onerror="this.style.display='none'">
+           class="agency-logo">
     </header>
 
     <div class="hero-title-area">
-      <h1>Votre avenir<br>commence ici</h1>
+      <h1>Votre avenir au Canada<br>commence ici</h1>
     </div>
 
-    <!-- CTA card with updated WhatsApp group link -->
     <div class="cta-card">
       <p>
         En cliquant sur « <em>Réserver ma consultation gratuite</em> », vous accédez au groupe WhatsApp qui vous donne accès à la conférence gratuite.
       </p>
 
-      <a href="https://chat.whatsapp.com/INmPXdW6l8pLhLKMqFad4B" id="whatsapp-btn" class="btn-whatsapp">
+      <a href="https://chat.whatsapp.com/EJKxrWyzHuZ48KVwOxUX8R" id="whatsapp-btn" class="btn-whatsapp">
         Réserver ma consultation gratuite
       </a>
     </div>
@@ -211,14 +208,14 @@
 
   </div>
 
+  <!-- Meta Pixel Lead Event Script + Mobile Deep Linking Bridge -->
   <script>
     document.getElementById('whatsapp-btn').addEventListener('click', function(e) {
       if (typeof fbq !== 'undefined') {
         fbq('track', 'Lead');
       }
 
-      /* Synchronized group code for direct WhatsApp application launching */
-      const groupCode = "INmPXdW6l8pLhLKMqFad4B";
+      const groupCode = "EJKxrWyzHuZ48KVwOxUX8R";
       const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
       if (isMobile) {
